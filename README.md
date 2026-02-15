@@ -6,10 +6,10 @@ Markdown
 
 ### Personal Virtual Assistant — Fully Offline, AI-Powered
 
-[![License](https://img.shields.io/badge/License-Proprietary%20EULA-0a1628?style=for-the-badge&labelColor=0a1628&color=5ce1ff)](LICENSE)
-[![Platform](https://img.shields.io/badge/Platform-Windows%2010%2F11-0a1628?style=for-the-badge&logo=windows&logoColor=5ce1ff&labelColor=0a1628&color=5ce1ff)]()
-[![Version](https://img.shields.io/badge/Version-6.0.0-0a1628?style=for-the-badge&labelColor=0a1628&color=5ce1ff)](https://github.com/Ravindu_S/JANE-AI-Assistant/releases)
-[![Downloads](https://img.shields.io/github/downloads/Ravindu_S/JANE-AI-Assistant/total?style=for-the-badge&label=Downloads&labelColor=0a1628&color=5ce1ff)](https://github.com/Ravindu_S/JANE-AI-Assistant/releases)
+[![License](https://img.shields.io/badge/License-Proprietary%20EULA-0a1628?style=for-the-badge&labelColor=0a1628&color=00bcd4)](LICENSE)
+[![Platform](https://img.shields.io/badge/Platform-Windows%2010%2F11-0a1628?style=for-the-badge&logo=windows&logoColor=00bcd4&labelColor=0a1628&color=00bcd4)]()
+[![Version](https://img.shields.io/badge/Version-6.0.0-0a1628?style=for-the-badge&labelColor=0a1628&color=00bcd4)](https://github.com/Ravindu_S/JANE-AI-Assistant/releases)
+[![Downloads](https://img.shields.io/github/downloads/Ravindu_S/JANE-AI-Assistant/total?style=for-the-badge&label=Downloads&labelColor=0a1628&color=00bcd4)](https://github.com/Ravindu_S/JANE-AI-Assistant/releases)
 
 ## Built With
 
