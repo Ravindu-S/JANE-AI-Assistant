@@ -14,7 +14,7 @@ Markdown
 
 <div align="center">
 
-<img src="assets/logos/python.png" width="80" alt="Python 3.13">
+<img src="assets/logos/python.png" width="70" alt="Python 3.13">
 <img src="assets/logos/llama.png" width="80" alt="Llama 3">
 
 **Python 3.13** • **Llama 3 (8B)**
