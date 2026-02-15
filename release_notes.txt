@@ -27,7 +27,7 @@ She's not just another chatbot. Jane can actually DO things:
 - Have natural conversations and answer your questions
 - Understand corrections and undo mistakes
 
-Built with privacy in mind. Powered by local AI. Created by Ravindu Senanayake.
+Built with privacy in mind. Powered by local AI.
 
 
 ================================================================================
@@ -233,7 +233,7 @@ PLATFORM:
 Jane is actively being developed. Here's what's on the roadmap:
 
 HIGH PRIORITY:
-  ✦ Faster response times (dedicated intent classifier)
+  ✦ Faster response times
   ✦ Custom "Hey Jane" wake word
   ✦ Streaming speech (start talking while still thinking)
 
