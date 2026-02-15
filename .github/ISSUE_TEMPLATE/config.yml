@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: FAQ & Troubleshooting
+    url: https://github.com/Ravindu-S/JANE-AI-Assistant/blob/main/faq.md
+    about: Check here before opening an issue
+  - name: Usage Guide
+    url: https://github.com/Ravindu-S/JANE-AI-Assistant/blob/main/usage.md
+    about: Learn how to use JANE properly

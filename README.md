@@ -8,8 +8,8 @@ Markdown
 
 [![License](https://img.shields.io/badge/License-Proprietary%20EULA-0a1628?style=for-the-badge&labelColor=0a1628&color=0097a7)](LICENSE)
 [![Platform](https://img.shields.io/badge/Platform-Windows%2010%2F11-0a1628?style=for-the-badge&logo=windows&logoColor=0097a7&labelColor=0a1628&color=0097a7)]()
-[![Version](https://img.shields.io/badge/Version-6.0.0-0a1628?style=for-the-badge&labelColor=0a1628&color=0097a7)](https://github.com/Ravindu_S/JANE-AI-Assistant/releases)
-[![Downloads](https://img.shields.io/github/downloads/Ravindu_S/JANE-AI-Assistant/total?style=for-the-badge&label=Downloads&labelColor=0a1628&color=0097a7)](https://github.com/Ravindu_S/JANE-AI-Assistant/releases)
+[![Version](https://img.shields.io/badge/Version-6.0.0-0a1628?style=for-the-badge&labelColor=0a1628&color=0097a7)](https://github.com/Ravindu-S/JANE-AI-Assistant/releases)
+[![Downloads](https://img.shields.io/github/downloads/Ravindu-S/JANE-AI-Assistant/total?style=for-the-badge&label=Downloads&labelColor=0a1628&color=0097a7)](https://github.com/Ravindu-S/JANE-AI-Assistant/releases)
 
 ## Built With
 
@@ -24,7 +24,7 @@ Markdown
 
 **Smart • Private • Fully Offline • AI-Powered**
 
-[Download](#download) • [Features](#features) • [Installation](#installation) • [Usage](#usage) • [FAQ](#faq) • [Report Bug](https://github.com/Ravindu_S/JANE-AI-Assistant/issues)
+[Download](#download) • [Features](#features) • [Installation](#installation) • [Usage](#usage) • [FAQ](#faq) • [Report Bug](https://github.com/Ravindu-S/JANE-AI-Assistant/issues)
 
 ---
 
@@ -55,7 +55,7 @@ Your voice, your commands, your privacy.
 
 | Platform | Download |
 |----------|----------|
-| Windows 10/11 (64-bit) | [**⬇️ JANE_AI_Setup_v6.0.0.exe**](https://github.com/Ravindu_S/JANE-AI-Assistant/releases/latest) |
+| Windows 10/11 (64-bit) | [**⬇️ JANE_AI_Setup_v6.0.0.exe**](https://github.com/Ravindu-S/JANE-AI-Assistant/releases/latest) |
 
 > **Prerequisites Required:** [Ollama](https://ollama.com/download) and [Google Chrome](https://www.google.com/chrome/) must be installed before using JANE. See [Installation](#installation) for details.
 
@@ -78,7 +78,7 @@ Your voice, your commands, your privacy.
 |---------|-------------|
 | **Natural Language Understanding** | No rigid commands — speak naturally |
 | **Context-Aware Conversations** | Remembers what you said before |
-| **Intent Classification** | AI decides what you want (not keyword matching) |
+| **Advance Understanding** | AI decides what you want (not keyword matching) |
 | **Correction Support** | Say "No, the other one" and JANE adapts |
 | **Undo System** | "Undo that" reverses any action |
 
@@ -370,13 +370,13 @@ No. Redistribution is not permitted. Please direct others to this official repos
 
 Found a bug? Help us improve JANE!
 
-[**Report Bug →**](https://github.com/Ravindu_S/JANE-AI-Assistant/issues/new?template=bug_report.md)
+[**Report Bug →**](https://github.com/Ravindu-S/JANE-AI-Assistant/issues/new?template=bug_report.md)
 
 ## Request a Feature
 
 Have an idea? We'd love to hear it!
 
-[**Request Feature →**](https://github.com/Ravindu_S/JANE-AI-Assistant/issues/new?template=feature_request.md)
+[**Request Feature →**](https://github.com/Ravindu-S/JANE-AI-Assistant/issues/new?template=feature_request.md)
 
 ---
 
