@@ -10,8 +10,16 @@ Markdown
 [![Platform](https://img.shields.io/badge/Platform-Windows%2010%2F11-blue.svg)]()
 [![Version](https://img.shields.io/badge/Version-6.0.0-green.svg)](https://github.com/Ravindu_S/JANE-AI-Assistant/releases)
 [![Downloads](https://img.shields.io/github/downloads/Ravindu_S/JANE-AI-Assistant/total.svg)](https://github.com/Ravindu_S/JANE-AI-Assistant/releases)
-[![Python](https://img.shields.io/badge/Built%20With-Python%203.13-yellow.svg)]()
-[![AI](https://img.shields.io/badge/AI-Llama%203%20(8B)-purple.svg)]()
+## Built With
+
+<div align="center">
+
+<img src="assets/logos/python.png" width="80" alt="Python 3.13">
+<img src="assets/logos/llama.png" width="80" alt="Llama 3">
+
+**Python 3.13** • **Llama 3 (8B)**
+
+</div>
 
 **Smart • Private • Fully Offline • AI-Powered**
 
@@ -19,7 +27,7 @@ Markdown
 
 ---
 
-![JANE AI Banner](screenshots/banner.png)
+![JANE AI Banner](assets/banner.gif)
 
 </div>
 
