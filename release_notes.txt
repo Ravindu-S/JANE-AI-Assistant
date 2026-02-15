@@ -27,7 +27,7 @@ She's not just another chatbot. Jane can actually DO things:
 - Have natural conversations and answer your questions
 - Understand corrections and undo mistakes
 
-Built with privacy in mind. Powered by local AI. Created by Ravindu Senanayake.
+Built with privacy in mind. Powered by local AI.
 
 
 ================================================================================
