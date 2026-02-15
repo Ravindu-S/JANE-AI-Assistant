@@ -27,7 +27,7 @@ Markdown
 
 ---
 
-![JANE AI Banner](assets/banner.gif)
+![JANE AI Banner](assets/banner.webp)
 
 </div>
 
