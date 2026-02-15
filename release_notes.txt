@@ -1,0 +1,314 @@
+================================================================================
+                           JANE 6.0 RELEASE NOTES
+                       AI Virtual Assistant Platform
+                        Created by Ravindu Senanayake
+                              Version 6.0.0
+                           Release Date: 2026-02-14
+================================================================================
+
+
+================================================================================
+1. WHAT IS JANE?
+================================================================================
+
+Meet Jane — a fully offline, AI-powered virtual assistant that lives entirely
+on your computer. No cloud. No subscriptions. No data leaving your machine.
+
+Jane listens to your voice, understands what you want through advanced AI,
+takes action on your computer, and responds naturally — all without ever
+touching the internet (except when you ask her to browse the web or play
+YouTube videos, of course).
+
+She's not just another chatbot. Jane can actually DO things:
+- Control your system volume and screen brightness
+- Search the web and play YouTube videos
+- Open, close, and switch between applications
+- Set reminders that speak to you when the time comes
+- Have natural conversations and answer your questions
+- Understand corrections and undo mistakes
+
+Built with privacy in mind. Powered by local AI. Created by Ravindu Senanayake.
+
+
+================================================================================
+2. SYSTEM REQUIREMENTS
+================================================================================
+
+MINIMUM:
+  - Windows 10 or later (64-bit)
+  - Intel i5 / AMD Ryzen 5 or equivalent
+  - 8 GB RAM
+  - 5 GB free disk space
+  - Microphone and speakers
+  - Google Chrome browser
+
+RECOMMENDED:
+  - Windows 11 (64-bit)
+  - Intel i7 / AMD Ryzen 7 or equivalent
+  - 16 GB RAM
+  - NVIDIA GPU with 4+ GB VRAM (for faster AI responses)
+  - Dedicated USB microphone or headset
+
+REQUIRED SOFTWARE:
+  - Ollama (free, local AI runtime) — download from https://ollama.com
+  - Google Chrome browser
+
+
+================================================================================
+3. WHAT JANE CAN DO
+================================================================================
+
+Jane combines the conversational intelligence of Llama 3 with real system
+control capabilities. She's not just answering questions — she's taking
+action on your behalf.
+
+-------------------------------------------------------------------------------
+3.1 VOICE INTERACTION
+-------------------------------------------------------------------------------
+
+Jane is always listening for you — but only when you want her to.
+
+ACTIVATION METHODS:
+  - Say "Hey Jarvis" to wake her up
+  - Press Ctrl+Shift+J for instant activation (recommended)
+
+SPEECH RECOGNITION:
+  - Fully offline speech-to-text
+  - Optimized for English
+  - Fast transcription (under 1 second for most commands)
+
+VOICE RESPONSES:
+  - Natural-sounding female voice
+  - Completely offline — no internet required
+  - Warm, conversational personality
+
+-------------------------------------------------------------------------------
+3.2 SYSTEM CONTROL
+-------------------------------------------------------------------------------
+
+Jane can control your computer with simple voice commands.
+
+VOLUME CONTROL:
+  "Turn up the volume"
+  "Lower the volume"
+  "Mute"
+  "Set volume to 50 percent"
+  "No, the other volume"        → switches between system and browser
+
+BRIGHTNESS CONTROL:
+  "Increase the brightness"
+  "Make it dimmer"
+  "Set brightness to 70 percent"
+  "That's not enough"           → keeps adjusting
+  "Too much"                    → reverses direction
+
+APPLICATION CONTROL:
+  "Open Chrome"
+  "Launch VS Code"
+  "Close Notepad"
+  "Switch to Discord"
+
+-------------------------------------------------------------------------------
+3.3 WEB & YOUTUBE
+-------------------------------------------------------------------------------
+
+When you need the internet, Jane handles it seamlessly.
+
+WEB SEARCH:
+  "Search for Python tutorials"
+  "Google machine learning basics"
+  "Open the first result"
+  "Show me the third one"
+
+YOUTUBE:
+  "Play Shape of You on YouTube"
+  "Search for cooking videos on YouTube"
+  "Open the second one"
+  "Pause"
+  "Skip to the next video"
+  "Go back to the previous one"
+  "Make it fullscreen"
+
+Jane even attempts to skip ads automatically when possible.
+
+-------------------------------------------------------------------------------
+3.4 REMINDERS
+-------------------------------------------------------------------------------
+
+Never forget anything again.
+
+  "Set a reminder for 5 minutes"
+  "Remind me in one hour to take a break"
+  "Remind me to call Mom at 7pm"
+
+When the time comes, Jane speaks your reminder out loud — even if you're
+doing something else.
+
+-------------------------------------------------------------------------------
+3.5 SCREEN READING
+-------------------------------------------------------------------------------
+
+Jane can see what's on your screen and help you understand it.
+
+  "Take a screenshot"
+  "Read this page for me"           → reads exact text aloud
+  "What is on my screen?"           → summarizes the content
+  "Explain what I'm looking at"     → provides context and analysis
+
+-------------------------------------------------------------------------------
+3.6 NATURAL CONVERSATION
+-------------------------------------------------------------------------------
+
+Jane is powered by Llama 3, running entirely on your machine.
+
+  "What is the capital of France?"
+  "Tell me about machine learning"
+  "How are you today?"
+  "Thanks for your help"
+
+She remembers context within a conversation:
+
+  You: "Search for cats on YouTube"
+  Jane: "Searching for cats on YouTube."
+  You: "Open the first one"
+  Jane: "Opening: Funny Cats Compilation..."
+  You: "Lower the volume"
+  Jane: "Browser volume now at 80%."
+  You: "No, the system volume"
+  Jane: "Got it, adjusting system volume instead."
+
+-------------------------------------------------------------------------------
+3.7 CORRECTIONS & UNDO
+-------------------------------------------------------------------------------
+
+Made a mistake? Jane understands corrections naturally.
+
+  "Undo that"                       → reverses the last action
+  "No, I meant the system volume"   → corrects and re-executes
+  "That's wrong"                    → triggers correction flow
+  "The other one"                   → switches targets
+
+Jane keeps track of what she's done and can reverse most actions.
+
+
+================================================================================
+4. KNOWN LIMITATIONS
+================================================================================
+
+Jane 6.0 is powerful, but she's not perfect. Here's what to expect:
+
+RESPONSE TIME:
+  - AI processing takes 10-22 seconds per command, depending on your hardware
+  - First command after startup is slower (loading AI models)
+  - GPU acceleration significantly improves speed
+
+WAKE WORD:
+  - Uses "Hey Jarvis" — custom "Hey Jane" wake word coming in future update
+  - Hotkey activation (Ctrl+Shift+J) is more reliable
+
+YOUTUBE ADS:
+  - Can only skip ads that have a "Skip" button
+  - Non-skippable ads must play through
+
+BROWSER:
+  - Jane's browser profile must be closed before asking her to open the browser
+  - Other Chrome profiles/windows can remain open — only Jane's profile matters
+
+SCREEN READING:
+  - Works best with clear, high-contrast text
+  - Handwritten or stylized text may not be recognized accurately
+
+CONVERSATION:
+  - Requires Ollama to be running for AI features
+  - Without Ollama, only basic responses are available
+
+PLATFORM:
+  - Windows only (macOS and Linux support planned for future)
+
+
+================================================================================
+5. WHAT'S COMING NEXT
+================================================================================
+
+Jane is actively being developed. Here's what's on the roadmap:
+
+HIGH PRIORITY:
+  ✦ Faster response times (dedicated intent classifier)
+  ✦ Custom "Hey Jane" wake word
+  ✦ Streaming speech (start talking while still thinking)
+
+MEDIUM PRIORITY:
+  ✦ Emotion-aware voice (happy, calm, empathetic tones)
+  ✦ Voice cloning (make Jane sound like anyone)
+  ✦ Clipboard control ("Copy that", "What's in my clipboard?")
+  ✦ File operations ("Create a folder on Desktop")
+
+FUTURE:
+  ✦ Multi-language support
+  ✦ Calendar integration
+  ✦ Note-taking system
+  ✦ Music player control (Spotify, local files)
+  ✦ Smart home integration
+  ✦ Plugin system for custom actions
+  ✦ Web dashboard for settings and history
+
+
+================================================================================
+6. GETTING STARTED
+================================================================================
+
+STEP 1: INSTALL OLLAMA
+  Download from https://ollama.com and install it.
+  Open a terminal and run:
+    ollama pull llama3
+
+STEP 2: START OLLAMA
+  Ollama usually runs automatically in the background.
+  Look for the Ollama icon in your system tray.
+  If not running, open a terminal and run:
+    ollama serve
+
+STEP 3: LAUNCH JANE
+  Run Jane from the Start Menu or desktop shortcut.
+  Wait for the greeting: "Hello! I'm Jane, your AI assistant."
+
+STEP 4: START TALKING
+  Press Ctrl+Shift+J (or say "Hey Jarvis")
+  Speak your command
+  Wait for Jane's response
+
+STEP 5: ENJOY
+  Try these commands to get started:
+    "What can you do?"
+    "Search for music on YouTube"
+    "Open the first one"
+    "Lower the volume"
+    "Set a reminder for 2 minutes"
+    "What time is it?"
+
+
+================================================================================
+7. TIPS FOR BEST EXPERIENCE
+================================================================================
+
+  Use the hotkey (Ctrl+Shift+J) — it's faster and more reliable
+  Speak clearly and wait for the activation sound
+  Give Jane a moment to process — AI takes time
+  Use follow-up commands naturally ("open the first one", "no, the other")
+  If something goes wrong, say "undo that"
+  Close Jane's browser window before asking her to open the browser again
+  A dedicated microphone improves recognition accuracy
+
+
+================================================================================
+                              END OF RELEASE NOTES
+================================================================================
+
+  Jane 6.0 — AI Virtual Assistant Platform
+  Created by Ravindu Senanayake
+  Version 6.0.0
+
+  Your voice. Your computer. Your control.
+  All powered by AI. All running locally. All private.
+
+================================================================================

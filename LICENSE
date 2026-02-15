@@ -1,0 +1,375 @@
+================================================================================
+
+JANE AI — PERSONAL VIRTUAL ASSISTANT
+END USER LICENSE AGREEMENT (EULA)
+
+Version 1.0
+Effective Date: February 14, 2026
+
+Copyright (c) 2021-present Ravindu Senanayake
+All Rights Reserved.
+
+================================================================================
+
+PLEASE READ THIS LICENSE AGREEMENT CAREFULLY BEFORE USING THIS SOFTWARE.
+BY INSTALLING, COPYING, OR OTHERWISE USING THIS SOFTWARE, YOU AGREE TO BE
+BOUND BY THE TERMS OF THIS AGREEMENT. IF YOU DO NOT AGREE, DO NOT INSTALL
+OR USE THIS SOFTWARE.
+
+================================================================================
+
+1. DEFINITIONS
+
+   "Software" refers to JANE AI — Personal Virtual Assistant, including
+   all executable files, compiled binaries, libraries, data files, model
+   files, configuration files, documentation, installers, and all
+   associated files distributed by the Owner.
+
+   "Owner" or "Creator" refers to Ravindu Senanayake, the sole creator
+   and copyright holder of this Software.
+
+   "User" or "You" refers to any individual or entity that downloads,
+   installs, or uses this Software.
+
+   "Third-Party Software" refers to separately licensed software
+   required to operate JANE AI, including but not limited to Ollama,
+   Google Chrome, and their respective components. These are NOT part
+   of this Software and are governed by their own licenses.
+
+--------------------------------------------------------------------------------
+
+2. GRANT OF LICENSE
+
+   The Owner grants You a limited, non-exclusive, non-transferable,
+   revocable license to:
+
+   (a) Download and install the Software on your personal device(s)
+       for personal, non-commercial use.
+
+   (b) Use the Software for its intended purpose as a personal
+       AI-powered virtual assistant, including but not limited to
+       voice interaction, system control, web browsing, media
+       playback, screen analysis, reminders, and general
+       conversation.
+
+   (c) Report bugs, provide feedback, suggest improvements, and
+       participate in discussions through the official channels
+       provided by the Owner.
+
+   This license does NOT grant You any ownership rights to the
+   Software, its underlying source code, compiled binaries,
+   algorithms, architecture, or any intellectual property therein.
+
+--------------------------------------------------------------------------------
+
+3. RESTRICTIONS
+
+   You may NOT:
+
+   (a) REVERSE ENGINEER — Decompile, disassemble, reverse engineer,
+       decode, decrypt, or attempt to derive the source code,
+       algorithms, data structures, or architecture of this Software
+       by any means, including but not limited to using debuggers,
+       disassemblers, decompilers, or any reverse engineering tools.
+
+   (b) MODIFY — Alter, adapt, translate, patch, or create derivative
+       works based on this Software or any component thereof.
+
+   (c) REDISTRIBUTE — Copy, distribute, sublicense, lease, rent,
+       sell, share, upload, mirror, rehost, or transfer this Software
+       or any portion of it to any third party, website, file sharing
+       service, or distribution platform.
+
+   (d) COMMERCIAL USE — Use this Software for any commercial purpose,
+       including but not limited to selling, offering as a service,
+       incorporating into a commercial product, or using in a
+       business environment, without a separate written commercial
+       license from the Owner.
+
+   (e) CLAIM OWNERSHIP — Represent, imply, or claim that You are the
+       creator, developer, or owner of this Software or any part of
+       it. This includes but is not limited to publishing, uploading,
+       or presenting this Software as your own work.
+
+   (f) REMOVE NOTICES — Remove, alter, obscure, or deface any
+       copyright notices, author attribution, branding, proprietary
+       markings, watermarks, or security identifiers contained in or
+       on the Software.
+
+   (g) MISREPRESENT — Upload, publish, or distribute this Software
+       or any modified or unmodified version under your own name,
+       any pseudonym, or any name other than the Owner's.
+
+   (h) CIRCUMVENT PROTECTION — Tamper with, bypass, disable, or
+       attempt to circumvent any security mechanisms, integrity
+       verification systems, cryptographic signatures, watermarks,
+       checksums, or identity verification systems embedded in this
+       Software. This includes but is not limited to modifying
+       the RSA-2048 cryptographic identity system, file integrity
+       checksums, code watermarks, or tampering detection mechanisms.
+
+   (i) EXTRACT COMPONENTS — Extract, isolate, or separately use any
+       individual component, module, model file, or data file from
+       this Software outside of its intended integrated operation.
+
+   (j) BENCHMARK — Publish performance benchmarks, comparisons, or
+       evaluations of this Software without prior written permission
+       from the Owner.
+
+--------------------------------------------------------------------------------
+
+4. INTELLECTUAL PROPERTY
+
+   The Software, including but not limited to its source code,
+   compiled binaries, object code, architecture, design, algorithms,
+   neural network configurations, prompt engineering, intent
+   classification system, action execution framework, personality
+   engine, security system, user interface, documentation, and all
+   associated intellectual property rights, is and shall remain the
+   exclusive property of Ravindu Senanayake.
+
+   Nothing in this Agreement shall be construed as transferring any
+   ownership rights, intellectual property rights, or proprietary
+   interest to You.
+
+--------------------------------------------------------------------------------
+
+5. CRYPTOGRAPHIC VERIFICATION
+
+   This Software contains a cryptographically signed and verifiable
+   creator identity implemented using RSA-2048 encryption. This
+   system includes:
+
+   (a) Digital signature verification of creator identity
+   (b) SHA-256 checksum verification of critical software files
+   (c) Embedded watermark verification across multiple code locations
+   (d) Active tampering and reverse engineering tool detection
+
+   The cryptographic signature serves as irrefutable proof of original
+   authorship and ownership.
+
+   Any attempt to alter, remove, forge, bypass, or circumvent this
+   identity system constitutes:
+
+   (a) A material violation of this Agreement
+   (b) A violation of applicable copyright and intellectual property
+       laws
+   (c) Grounds for immediate legal action by the Owner
+
+   The Software will refuse to operate if integrity verification
+   fails at startup.
+
+--------------------------------------------------------------------------------
+
+6. THIRD-PARTY SOFTWARE
+
+   This Software requires the following third-party software to
+   operate. These are NOT included with this Software and must be
+   installed separately by the User:
+
+   (a) Ollama — AI model inference engine
+       License: MIT License
+       Website: https://ollama.com
+
+   (b) Google Chrome — Web browser
+       License: Google Chrome Terms of Service
+       Website: https://www.google.com/chrome/
+
+   The Owner is not responsible for the availability, functionality,
+   licensing, or terms of service of any third-party software. Your
+   use of third-party software is governed by their respective
+   licenses and terms.
+
+--------------------------------------------------------------------------------
+
+7. DATA AND PRIVACY
+
+   This Software is designed with a privacy-first architecture.
+
+   (a) LOCAL PROCESSING: All AI inference, speech recognition,
+       text-to-speech synthesis, intent classification, and
+       conversation processing occurs entirely on your local
+       device using locally installed models.
+
+   (b) NO DATA COLLECTION: The Software does NOT collect, transmit,
+       upload, or share any personal data, voice recordings,
+       conversation logs, usage statistics, or telemetry data to
+       any external server, cloud service, or third party.
+
+   (c) LOCAL STORAGE: Conversation history, learned commands,
+       reminders, configuration preferences, and semantic memory
+       are stored exclusively in local databases on your device
+       under the Software's installation directory.
+
+   (d) INTERNET USAGE: Internet connectivity is used ONLY for:
+       - Web search queries (via Google through Chrome browser)
+       - YouTube search and playback (via Chrome browser)
+       - Ollama model downloads (initial setup only)
+       No other internet communication is initiated by this Software.
+
+   (e) VOICE DATA: Voice input is processed locally by the
+       faster-whisper speech recognition model. Audio data is
+       processed in real-time memory and is NOT recorded, stored,
+       or transmitted unless explicitly configured by the User.
+
+--------------------------------------------------------------------------------
+
+8. FEEDBACK AND BUG REPORTS
+
+   Any feedback, bug reports, suggestions, feature requests, or
+   ideas ("Feedback") that You voluntarily submit to the Owner
+   regarding this Software shall become the property of the Owner.
+   The Owner may use, implement, modify, or incorporate such Feedback
+   into the Software without any obligation, compensation, credit,
+   or notice to You.
+
+--------------------------------------------------------------------------------
+
+9. UPDATES
+
+   The Owner may release updates, patches, or new versions of the
+   Software at their sole discretion. Updates may modify features,
+   fix bugs, or change system requirements. The Owner is under no
+   obligation to provide updates, support, or maintenance.
+
+   Installation of updates constitutes acceptance of any revised
+   license terms accompanying the update.
+
+--------------------------------------------------------------------------------
+
+10. DISCLAIMER OF WARRANTIES
+
+    THE SOFTWARE IS PROVIDED "AS IS" AND "AS AVAILABLE" WITHOUT
+    WARRANTIES OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING
+    BUT NOT LIMITED TO IMPLIED WARRANTIES OF MERCHANTABILITY,
+    FITNESS FOR A PARTICULAR PURPOSE, ACCURACY, RELIABILITY,
+    AND NON-INFRINGEMENT.
+
+    THE OWNER DOES NOT WARRANT THAT:
+    (a) THE SOFTWARE WILL MEET YOUR REQUIREMENTS OR EXPECTATIONS
+    (b) THE SOFTWARE WILL BE UNINTERRUPTED, TIMELY, SECURE, OR
+        ERROR-FREE
+    (c) THE RESULTS OBTAINED FROM THE SOFTWARE WILL BE ACCURATE,
+        COMPLETE, OR RELIABLE
+    (d) THE AI RESPONSES WILL BE FACTUALLY CORRECT OR APPROPRIATE
+    (e) THE SOFTWARE WILL BE COMPATIBLE WITH ALL HARDWARE
+        CONFIGURATIONS OR THIRD-PARTY SOFTWARE VERSIONS
+    (f) ANY DEFECTS OR ERRORS WILL BE CORRECTED
+
+    YOU ACKNOWLEDGE THAT AI-GENERATED RESPONSES MAY CONTAIN
+    INACCURACIES, HALLUCINATIONS, OR ERRORS. THE SOFTWARE SHOULD
+    NOT BE RELIED UPON FOR CRITICAL, MEDICAL, LEGAL, FINANCIAL,
+    OR SAFETY-RELATED DECISIONS.
+
+--------------------------------------------------------------------------------
+
+11. LIMITATION OF LIABILITY
+
+    IN NO EVENT SHALL THE OWNER BE LIABLE FOR ANY INDIRECT,
+    INCIDENTAL, SPECIAL, CONSEQUENTIAL, EXEMPLARY, OR PUNITIVE
+    DAMAGES, INCLUDING BUT NOT LIMITED TO LOSS OF DATA, LOSS OF
+    PROFITS, LOSS OF GOODWILL, BUSINESS INTERRUPTION, DEVICE
+    DAMAGE, OR SYSTEM INSTABILITY, ARISING OUT OF OR IN CONNECTION
+    WITH THE USE OR INABILITY TO USE THIS SOFTWARE, EVEN IF THE
+    OWNER HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
+
+    THE OWNER SHALL NOT BE LIABLE FOR ANY DAMAGES RESULTING FROM:
+    (a) ACTIONS TAKEN BY THE SOFTWARE ON YOUR SYSTEM (INCLUDING
+        VOLUME CHANGES, BRIGHTNESS ADJUSTMENTS, APPLICATION
+        MANAGEMENT, OR FILE OPERATIONS)
+    (b) INACCURATE AI RESPONSES OR INTENT MISCLASSIFICATION
+    (c) THIRD-PARTY SOFTWARE FAILURES (OLLAMA, CHROME, ETC.)
+    (d) DATA LOSS FROM LOCAL DATABASES OR CONFIGURATION FILES
+
+    THE OWNER'S TOTAL LIABILITY SHALL NOT EXCEED THE AMOUNT YOU
+    PAID FOR THE SOFTWARE, WHICH IS ZERO (FREE SOFTWARE).
+
+--------------------------------------------------------------------------------
+
+12. TERMINATION
+
+    This license is effective until terminated.
+
+    AUTOMATIC TERMINATION:
+    This license terminates automatically and immediately if You
+    fail to comply with any term or condition of this Agreement.
+
+    TERMINATION BY OWNER:
+    The Owner reserves the right to terminate this license at any
+    time, for any reason, with or without notice.
+
+    UPON TERMINATION:
+    You must immediately:
+    (a) Cease all use of the Software
+    (b) Uninstall the Software from all devices
+    (c) Destroy all copies of the Software in your possession
+        or control
+    (d) Delete any data derived from the Software
+
+    Sections 3, 4, 5, 7, 10, 11, and 13 shall survive termination
+    of this Agreement.
+
+--------------------------------------------------------------------------------
+
+13. GOVERNING LAW AND JURISDICTION
+
+    This Agreement shall be governed by and construed in accordance
+    with the laws of Sri Lanka, without regard to its conflict of
+    law provisions.
+
+    Any disputes arising under or in connection with this Agreement
+    shall be subject to the exclusive jurisdiction of the courts
+    of Sri Lanka.
+
+--------------------------------------------------------------------------------
+
+14. ENFORCEMENT AND SEVERABILITY
+
+    If any provision of this Agreement is held to be unenforceable,
+    invalid, or illegal by a court of competent jurisdiction, that
+    provision shall be modified to the minimum extent necessary to
+    make it enforceable, and the remaining provisions shall continue
+    in full force and effect.
+
+    The failure of the Owner to enforce any provision of this
+    Agreement shall not constitute a waiver of future enforcement
+    of that or any other provision.
+
+--------------------------------------------------------------------------------
+
+15. ENTIRE AGREEMENT
+
+    This Agreement constitutes the entire agreement between You and
+    the Owner regarding the Software and supersedes all prior
+    agreements, understandings, negotiations, and communications,
+    whether written or oral, relating to the Software.
+
+--------------------------------------------------------------------------------
+
+16. AMENDMENTS
+
+    The Owner reserves the right to modify this Agreement at any
+    time by releasing a new version of the Agreement. Continued use
+    of the Software after any modifications constitutes Your
+    acceptance of the revised terms. It is Your responsibility to
+    review this Agreement periodically for changes.
+
+--------------------------------------------------------------------------------
+
+17. CONTACT INFORMATION
+
+    For licensing inquiries, commercial licensing requests,
+    permissions, bug reports, or questions:
+
+    Ravindu Senanayake
+    Email: ravinduvidulaka@gmail.com
+    Country: Sri Lanka
+    GitHub: https://github.com/Ravindu_S/JANE-AI-Assistant
+
+================================================================================
+
+BY INSTALLING OR USING THIS SOFTWARE, YOU ACKNOWLEDGE THAT YOU HAVE
+READ, UNDERSTOOD, AND AGREE TO BE BOUND BY THE TERMS AND CONDITIONS
+OF THIS END USER LICENSE AGREEMENT.
+
+================================================================================
