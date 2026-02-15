@@ -120,7 +120,7 @@ Your voice, your commands, your privacy.
 | **Integrity Protection** | Protection against unauthorized modification |
 
 ---
-
+<!--
 ## Screenshots
 
 <div align="center">
@@ -136,7 +136,7 @@ Your voice, your commands, your privacy.
 </div>
 
 ---
-
+-->
 ## Installation
 
 ### Prerequisites
