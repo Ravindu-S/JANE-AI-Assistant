@@ -56,7 +56,7 @@ Your voice, your commands, your privacy.
 
 | Platform | Download |
 |----------|----------|
-| Windows 10/11 (64-bit) | [**⬇️ JANE_AI_Setup_v6.0.0.exe**](https://github.com/Ravindu-S/JANE-AI-Assistant/releases/latest) |
+| Windows 10/11 (64-bit) | [**⬇️ Jane_v6.0.zip**](https://github.com/Ravindu-S/JANE-AI-Assistant/releases/latest) |
 
 > **Prerequisites Required:** [Ollama](https://ollama.com/download) and [Google Chrome](https://www.google.com/chrome/) must be installed before using JANE. See [Installation](#installation) for details.
 
@@ -163,7 +163,7 @@ Before installing JANE, you must install:
 
 ### Install JANE
 
-1. Download `JANE_AI_Setup_v6.0.0.exe` from the Releases page
+1. Download `Jane_v6.0.zip` from the Releases page
 2. Run the installer
 3. Follow the installation wizard
 4. Launch JANE from the desktop shortcut or Start Menu
@@ -179,7 +179,7 @@ Before installing JANE, you must install:
 | **CPU** | Intel i5 / Ryzen 5 | Intel i7 / Ryzen 7 |
 | **RAM** | 8 GB | 16 GB |
 | **GPU** | Not required | NVIDIA 4+ GB VRAM |
-| **Storage** | 5 GB free | 10 GB free |
+| **Storage** | 12 GB free | 12 GB free |
 | **Microphone** | Any microphone | USB mic or headset |
 | **Speakers** | Any speakers | Any speakers |
 
