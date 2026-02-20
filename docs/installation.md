@@ -23,30 +23,55 @@
 
 ## 💻 System Requirements
 
-### Minimum Requirements
+### Minimum Requirements (with GPU)
 
 | Component | Requirement |
 |-----------|-------------|
-| **Operating System** | Windows 10 (64-bit) or later |
-| **Processor** | Intel Core i5 / AMD Ryzen 5 or equivalent |
-| **RAM** | 8 GB |
-| **Storage** | 5 GB free disk space |
-| **Microphone** | Required for voice input |
-| **Speakers** | Required for voice output |
-| **Internet** | Required for initial setup only |
+| **Operating System** | Windows 10 version 1809 (64-bit) |
+| **Processor** | 6-core 3.0 GHz+ (Intel i5 10th gen+ / AMD Ryzen 5 5000+) |
+| **RAM** | 16 GB |
+| **GPU** | NVIDIA GTX 1660 / RTX 2060+ (6 GB VRAM) |
+| **Storage** | 12 GB free space (SSD recommended) |
+| **Microphone** | Required for voice commands |
+| **Internet** | Required for Ollama model download |
 
-### Recommended Requirements
+**Expected response times:**
+- Chat: 3-8 seconds
+- OCR: 8-15 seconds
+
+---
+
+### Minimum Requirements (CPU only)
+
+| Component | Requirement |
+|-----------|-------------|
+| **Processor** | 8-core 3.5 GHz+ (Intel i7 10th gen+ / AMD Ryzen 7 5000+) |
+| **RAM** | 32 GB |
+| **GPU** | Not required |
+
+**Expected response times:**
+- Chat: 15-30 seconds
+- OCR: 20-40 seconds
+
+---
+
+### Recommended Requirements (Best Experience)
 
 | Component | Recommendation |
 |-----------|----------------|
 | **Operating System** | Windows 11 (64-bit) |
-| **Processor** | Intel Core i7 / AMD Ryzen 7 or equivalent |
-| **RAM** | 16 GB |
-| **GPU** | NVIDIA GPU with 4+ GB VRAM |
-| **Storage** | 10 GB free disk space |
-| **Microphone** | Dedicated USB microphone or headset |
+| **Processor** | 8-core 4.0 GHz+ (Intel i7/i9 12th gen+ / AMD Ryzen 7/9 5000+) |
+| **RAM** | 32 GB |
+| **GPU** | NVIDIA RTX 3070+ (8 GB VRAM or more) |
+| **Storage** | 20 GB free NVMe SSD |
+| **Microphone** | Quality microphone |
+| **Internet** | Broadband |
 
-> 💡 **Tip:** A dedicated GPU significantly improves AI response times. Without a GPU, JANE will still work but responses may take longer.
+**Expected response times:**
+- Chat: 1-3 seconds
+- OCR: 3-8 seconds
+
+> 💡 **Tip:** A dedicated NVIDIA GPU significantly improves AI response times. For GPU acceleration, minimum 6 GB VRAM is required. For CPU-only operation, expect longer response times but full functionality is maintained.
 
 ---
 
