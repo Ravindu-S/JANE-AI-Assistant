@@ -34,20 +34,40 @@ Built with privacy in mind. Powered by local AI.
 2. SYSTEM REQUIREMENTS
 ================================================================================
 
-MINIMUM:
-  - Windows 10 or later (64-bit)
-  - Intel i5 / AMD Ryzen 5 or equivalent
-  - 8 GB RAM
-  - 5 GB free disk space
-  - Microphone and speakers
-  - Google Chrome browser
+  MINIMUM REQUIREMENTS (with GPU):+
+  '  OS:        Windows 10 version 1809 (64-bit)
+  '  CPU:       6-core 3.0 GHz+
+  '               (Intel i5 10th gen+ / AMD Ryzen 5 5000+)
+  '  RAM:       16 GB
+  '  GPU:       NVIDIA GTX 1660 / RTX 2060+ (6 GB VRAM)
+  '  Storage:   12 GB free space (SSD recommended)
+  '  Audio:     Microphone for voice commands
+  '  Internet:  Required for Ollama model download
+  '  Expected response times:
+  '    Chat: 3-8 seconds | OCR: 8-15 seconds
+  '═══════════════════════════════════════════
 
-RECOMMENDED:
-  - Windows 11 (64-bit)
-  - Intel i7 / AMD Ryzen 7 or equivalent
-  - 16 GB RAM
-  - NVIDIA GPU with 4+ GB VRAM (for faster AI responses)
-  - Dedicated USB microphone or headset
+  'MINIMUM REQUIREMENTS (CPU only):
+  '  CPU:       8-core 3.5 GHz+
+  '               (Intel i7 10th gen+ / AMD Ryzen 7 5000+)
+  '  RAM:       32 GB
+  '  GPU:       Not required
+  '  Expected response times:
+  '    Chat: 15-30 seconds | OCR: 20-40 seconds
+  '═══════════════════════════════════════════
+
+  'RECOMMENDED (best experience):
+  '  OS:        Windows 11 (64-bit)
+  '  CPU:       8-core 4.0 GHz+
+  '               (Intel i7/i9 12th gen+ / AMD Ryzen 7/9 5000+)
+  '  RAM:       32 GB
+  '  GPU:       NVIDIA RTX 3070+ (8 GB VRAM or more)
+  '  Storage:   20 GB free NVMe SSD
+  '  Audio:     Quality microphone
+  '  Internet:  Broadband
+  '  Expected response times:
+  '    Chat: 1-3 seconds | OCR: 3-8 seconds
+  '═══════════════════════════════════════════
 
 REQUIRED SOFTWARE:
   - Ollama (free, local AI runtime) — download from https://ollama.com
