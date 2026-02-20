@@ -3,7 +3,6 @@ Markdown
 <div align="center">
 
 # JANE AI
-# Coming soon...
 
 ### Personal Virtual Assistant — Fully Offline, AI-Powered
 
