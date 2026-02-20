@@ -69,18 +69,38 @@ No. JANE is proprietary software protected by copyright. Please see the [License
 
 ### What are the system requirements?
 
-**Minimum:**
-- Windows 10 (64-bit)
-- Intel i5 / AMD Ryzen 5
-- 8 GB RAM
-- 5 GB storage
-- Microphone & speakers
+**Minimum (with GPU):**
+- Windows 10 version 1809 (64-bit)
+- 6-core 3.0 GHz+ CPU (Intel i5 10th gen+ / AMD Ryzen 5 5000+)
+- 16 GB RAM
+- NVIDIA GTX 1660 / RTX 2060+ (6 GB VRAM)
+- 12 GB free storage (SSD recommended)
+- Microphone for voice commands
+- Internet for Ollama model download
+
+**Expected response times:** Chat: 3-8 seconds | OCR: 8-15 seconds
+
+---
+
+**Minimum (CPU only):**
+- 8-core 3.5 GHz+ CPU (Intel i7 10th gen+ / AMD Ryzen 7 5000+)
+- 32 GB RAM
+- GPU not required
+
+**Expected response times:** Chat: 15-30 seconds | OCR: 20-40 seconds
+
+---
 
 **Recommended:**
 - Windows 11 (64-bit)
-- Intel i7 / AMD Ryzen 7
-- 16 GB RAM
-- NVIDIA GPU with 4+ GB VRAM
+- 8-core 4.0 GHz+ CPU (Intel i7/i9 12th gen+ / AMD Ryzen 7/9 5000+)
+- 32 GB RAM
+- NVIDIA RTX 3070+ (8 GB VRAM or more)
+- 20 GB free NVMe SSD
+- Quality microphone
+- Broadband internet
+
+**Expected response times:** Chat: 1-3 seconds | OCR: 3-8 seconds
 
 See [Installation Guide](installation.md) for full details.
 
