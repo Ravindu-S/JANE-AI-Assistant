@@ -418,7 +418,7 @@
   const msgs = {
     intro: ['JANE.BOT ONLINE ⚡', 'HEY THERE! 👋', 'HELLO, HUMAN!'],
     hover: ['PSST... HI! 👀', 'NEED HELP? 🤔', 'CLICK ME!', 'JANE v6.0 🔒'],
-    click: ['STAY OFFLINE 🔒', 'NO CLOUD. EVER.', 'PRIVACY = POWER ⚡', 'BEEP BOOP! 🤖', 'I AM JANE!', '100% LOCAL ✓'],
+    click: ['STAY OFFLINE 🔒', 'NO CLOUD. EVER.', 'PRIVACY = POWER ⚡', 'BEEP BOOP! 🤖', '100% LOCAL ✓'],
     idle:  ['SCANNING... 👀', 'ALL SYSTEMS GO ✓', 'STILL WATCHING!', 'BOT MODE: ON 🔵'],
   };
   function pick(t) { const a = msgs[t]; return a[Math.floor(Math.random() * a.length)]; }
