@@ -286,9 +286,9 @@
     <circle cx="74.5" cy="44" r="1.8" fill="#00ffe7" opacity="0.8" filter="url(#jb-sglow)"/>
 
     <!-- ══ MAIN HEAD — Hexagonal porcelain ══ -->
-    <polygon points="45,8 72,22 76,52 62,76 28,76 14,52 18,22"
-             fill="url(#jb-porcelain)"
-             stroke="#b8d0dc" stroke-width="1"/>
+    <polygon points="45,10 68,20 74,46 64,72 45,78 26,72 16,46 22,20"
+         fill="url(#jb-porcelain)"
+         stroke="#b8d0dc" stroke-width="1"/>
 
     <!-- Face bevel edges (subtle dark lines for hex facets) -->
     <!-- Top-left facet edge -->
@@ -364,20 +364,24 @@
     <!-- ══ EYES (inside visor) ══ -->
     <!-- Left eye -->
     <g id="jb-eye-l">
-      <ellipse cx="34" cy="44" rx="7.5" ry="6.5"
-               fill="#050f1a" stroke="#00ccff" stroke-width="0.8" stroke-opacity="0.7"/>
-      <ellipse id="jb-pupil-l" cx="34" cy="44" rx="3.5" ry="3.5"
+      <!-- Bigger rounder cute eye socket -->
+      <ellipse cx="34" cy="44" rx="9" ry="9"
+               fill="#050f1a" stroke="#00ccff" stroke-width="1" stroke-opacity="0.8"/>
+      <!-- Oval pupil — tall and cute -->
+      <ellipse id="jb-pupil-l" cx="34" cy="44" rx="4" ry="5.5"
                fill="#00ffe7" filter="url(#jb-vglow)" opacity="0.95"/>
-      <!-- Catchlight -->
-      <ellipse cx="31.8" cy="42" rx="1.3" ry="1.1" fill="white" opacity="0.8"/>
+      <!-- Big catchlight top-left -->
+      <ellipse cx="31.2" cy="40.5" rx="2" ry="2" fill="white" opacity="0.85"/>
+      <!-- Tiny second catchlight -->
+      <ellipse cx="36.5" cy="47" rx="0.9" ry="0.9" fill="white" opacity="0.5"/>
     </g>
-    <!-- Right eye -->
     <g id="jb-eye-r">
-      <ellipse cx="56" cy="44" rx="7.5" ry="6.5"
-               fill="#050f1a" stroke="#00ccff" stroke-width="0.8" stroke-opacity="0.7"/>
-      <ellipse id="jb-pupil-r" cx="56" cy="44" rx="3.5" ry="3.5"
+      <ellipse cx="56" cy="44" rx="9" ry="9"
+               fill="#050f1a" stroke="#00ccff" stroke-width="1" stroke-opacity="0.8"/>
+      <ellipse id="jb-pupil-r" cx="56" cy="44" rx="4" ry="5.5"
                fill="#00ffe7" filter="url(#jb-vglow)" opacity="0.95"/>
-      <ellipse cx="53.8" cy="42" rx="1.3" ry="1.1" fill="white" opacity="0.8"/>
+      <ellipse cx="53.2" cy="40.5" rx="2" ry="2" fill="white" opacity="0.85"/>
+      <ellipse cx="58.5" cy="47" rx="0.9" ry="0.9" fill="white" opacity="0.5"/>
     </g>
 
     <!-- Visor top gloss reflection -->
@@ -402,9 +406,12 @@
              fill="none" stroke="#00ccff" stroke-width="1.2"
              stroke-opacity="0.6" filter="url(#jb-glow)"/>
 
+    <!-- Bigger cuter cheek blush -->
+    <ellipse cx="22" cy="54" rx="7" ry="4" fill="#ffb3c6" opacity="0.28"/>
+    <ellipse cx="68" cy="54" rx="7" ry="4" fill="#ffb3c6" opacity="0.28"/>
     <!-- Top highlight sheen -->
-    <path d="M32,10 Q45,6 58,10 L60,18 Q45,13 30,18 Z"
-          fill="white" opacity="0.25"/>
+    <path d="M32,12 Q45,8 58,12 L59,19 Q45,15 31,19 Z"
+          fill="white" opacity="0.28"/>
 
     <!-- ══ ANTENNA ══ -->
     <line x1="45" y1="8" x2="45" y2="1"
