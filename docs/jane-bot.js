@@ -1,456 +1,384 @@
 /**
- * JANE Bot — Floating Cyberpunk Companion
- * A floating bot face that waves, follows scroll, switches sides,
- * and looks at content like a side profile.
- * 
- * Usage: Add <script src="jane-bot.js"></script> to index.md before </body>
+ * JANE Bot — Low-Poly White Tile Companion
+ * UFO-style free movement, cartoon eyes, speech bubbles
  */
-
 (function () {
-  // ── CONFIG ──
-  const SWITCH_CHANCE = 0.3;       // probability of switching sides on scroll stop
-  const FLOAT_SPEED   = 120;       // ms per scroll position update
-  const LOOK_DELAY    = 600;       // ms after scroll stop before looking inward
-  const BOT_SIZE      = 90;        // px
 
-  // ── STATE ──
-  let side        = 'left';        // 'left' | 'right'
-  let looking     = 'front';       // 'front' | 'inward' | 'user'
-  let isScrolling = false;
-  let scrollTimer = null;
-  let floatTimer  = null;
-  let targetY     = 120;
-  let currentY    = 120;
-  let introduced  = false;
-  let isHovered   = false;
-  let clickCount  = 0;
+  const SIZE       = 90;
+  const SPEED      = 0.6;
+  const DIR_CHANGE = 4000;
+  const MARGIN     = 20;
 
-  // ── BUILD DOM ──
-  const wrapper = document.createElement('div');
-  wrapper.id = 'jane-bot-wrapper';
+  let posX = 80, posY = 160;
+  let velX = SPEED, velY = SPEED * 0.6;
+  let isHovered = false;
+  let wobble = 0;
+  let blinkTimer, dirTimer, idleTimer;
 
-  const bot = document.createElement('div');
-  bot.id = 'jane-bot';
+  // ── ROOT ──
+  const botEl = document.createElement('div');
+  botEl.id = 'jb-bot';
+  document.body.appendChild(botEl);
 
-  const bubble = document.createElement('div');
-  bubble.id = 'jane-bubble';
-
-  wrapper.appendChild(bubble);
-  wrapper.appendChild(bot);
-  document.body.appendChild(wrapper);
+  const bubbleEl = document.createElement('div');
+  bubbleEl.id = 'jb-bubble';
+  document.body.appendChild(bubbleEl);
 
   // ── STYLES ──
-  const style = document.createElement('style');
-  style.textContent = `
-    #jane-bot-wrapper {
+  const css = document.createElement('style');
+  css.textContent = `
+    #jb-bot {
       position: fixed;
-      left: 18px;
-      top: 120px;
-      z-index: 9000;
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 8px;
-      pointer-events: none;
-      transition: left 0.7s cubic-bezier(0.34,1.56,0.64,1),
-                  right 0.7s cubic-bezier(0.34,1.56,0.64,1),
-                  top 0.4s ease;
-    }
-
-    #jane-bot-wrapper.right-side {
-      left: unset;
-      right: 18px;
-      align-items: flex-end;
-    }
-
-    #jane-bot {
-      width: ${BOT_SIZE}px;
-      height: ${BOT_SIZE}px;
-      cursor: pointer;
+      width: ${SIZE}px;
+      height: ${SIZE}px;
       pointer-events: all;
-      position: relative;
-      transform-origin: center bottom;
-      animation: bot-float 3.5s ease-in-out infinite;
-      transition: transform 0.5s ease;
-      filter: drop-shadow(0 0 10px rgba(0,255,231,0.4));
+      cursor: pointer;
+      z-index: 9500;
+      will-change: left, top;
+      filter: drop-shadow(0 6px 18px rgba(0,200,255,0.3))
+              drop-shadow(0 0 6px rgba(0,200,255,0.15));
+      transition: filter 0.3s;
+    }
+    #jb-bot:hover {
+      filter: drop-shadow(0 6px 26px rgba(0,220,255,0.65))
+              drop-shadow(0 0 14px rgba(0,220,255,0.45));
+    }
+    @keyframes jb-bob {
+      0%,100% { transform: translateY(0px); }
+      50%      { transform: translateY(-8px); }
+    }
+    #jb-bot { animation: jb-bob 3s ease-in-out infinite; }
+
+    @keyframes jb-pop {
+      0%   { transform: scale(0) rotate(-15deg); opacity:0; }
+      70%  { transform: scale(1.12) rotate(3deg); opacity:1; }
+      100% { transform: scale(1) rotate(0deg); opacity:1; }
+    }
+    #jb-bot.intro {
+      animation: jb-pop 0.65s cubic-bezier(.34,1.56,.64,1) forwards,
+                 jb-bob 3s ease-in-out 0.65s infinite;
+    }
+    @keyframes jb-wave {
+      0%,100% { transform: rotate(0deg) translateY(0); }
+      20%     { transform: rotate(-16deg) translateY(-4px); }
+      40%     { transform: rotate(13deg) translateY(-4px); }
+      60%     { transform: rotate(-10deg) translateY(-2px); }
+      80%     { transform: rotate(6deg); }
+    }
+    #jb-bot.wave {
+      animation: jb-wave 1s ease-in-out forwards,
+                 jb-bob 3s ease-in-out 1s infinite;
+    }
+    @keyframes jb-bounce {
+      0%,100% { transform: scale(1) translateY(0); }
+      35%     { transform: scale(0.93) translateY(-16px); }
+      65%     { transform: scale(1.05) translateY(4px); }
+    }
+    #jb-bot.bounce {
+      animation: jb-bounce 0.55s ease forwards,
+                 jb-bob 3s ease-in-out 0.55s infinite;
     }
 
-    #jane-bot:hover {
-      filter: drop-shadow(0 0 18px rgba(0,255,231,0.8));
-    }
-
-    /* Face orientation transitions */
-    #jane-bot.face-front   { transform: scaleX(1); }
-    #jane-bot.face-inward  { transform: scaleX(-1); }
-    #jane-bot.face-right   { transform: scaleX(1); }
-    #jane-bot.right-side #jane-bot.face-inward { transform: scaleX(1); }
-
-    @keyframes bot-float {
-      0%,100% { margin-bottom: 0px; }
-      50%      { margin-bottom: 10px; }
-    }
-
-    /* ── WAVE animation ── */
-    @keyframes bot-wave {
-      0%   { transform: scaleX(var(--sx,1)) rotate(0deg); }
-      15%  { transform: scaleX(var(--sx,1)) rotate(-12deg); }
-      30%  { transform: scaleX(var(--sx,1)) rotate(10deg); }
-      45%  { transform: scaleX(var(--sx,1)) rotate(-10deg); }
-      60%  { transform: scaleX(var(--sx,1)) rotate(8deg); }
-      75%  { transform: scaleX(var(--sx,1)) rotate(-6deg); }
-      100% { transform: scaleX(var(--sx,1)) rotate(0deg); }
-    }
-    #jane-bot.waving {
-      animation: bot-wave 1.2s ease-in-out, bot-float 3.5s ease-in-out 1.2s infinite;
-    }
-
-    /* ── SPEECH BUBBLE ── */
-    #jane-bubble {
-      background: rgba(2,12,24,0.95);
-      border: 1px solid rgba(0,255,231,0.4);
-      border-radius: 6px;
-      padding: 8px 13px;
+    /* ── BUBBLE ── */
+    #jb-bubble {
+      position: fixed;
+      z-index: 9501;
+      background: rgba(4,14,28,0.96);
+      border: 1px solid rgba(0,220,255,0.55);
+      border-radius: 10px;
+      padding: 7px 13px;
       font-family: 'Share Tech Mono', monospace;
-      font-size: 0.72rem;
+      font-size: 0.7rem;
       color: #00ffe7;
-      letter-spacing: 1px;
-      max-width: 160px;
+      letter-spacing: 1.5px;
+      white-space: nowrap;
       pointer-events: none;
       opacity: 0;
-      transform: translateY(6px);
-      transition: opacity 0.3s ease, transform 0.3s ease;
-      position: relative;
-      box-shadow: 0 0 15px rgba(0,255,231,0.15);
-      line-height: 1.4;
-      order: -1;
+      transform: scale(0.85) translateY(4px);
+      transform-origin: bottom center;
+      transition: opacity 0.22s, transform 0.22s;
+      box-shadow: 0 0 18px rgba(0,220,255,0.18);
     }
-
-    #jane-bot-wrapper.right-side #jane-bubble {
-      text-align: right;
+    #jb-bubble.show {
+      opacity: 1;
+      transform: scale(1) translateY(0);
     }
-
-    /* bubble tail */
-    #jane-bubble::after {
+    #jb-bubble::after {
       content: '';
       position: absolute;
       bottom: -7px;
-      left: 18px;
-      width: 12px;
-      height: 7px;
-      background: rgba(2,12,24,0.95);
-      clip-path: polygon(0 0, 100% 0, 50% 100%);
-      border-left: 1px solid rgba(0,255,231,0.4);
-      border-right: 1px solid rgba(0,255,231,0.4);
-    }
-
-    #jane-bot-wrapper.right-side #jane-bubble::after {
-      left: unset;
-      right: 18px;
-    }
-
-    #jane-bubble.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    /* ── GLITCH on scroll ── */
-    @keyframes bot-glitch {
-      0%,100% { clip-path: none; filter: drop-shadow(0 0 10px rgba(0,255,231,0.4)); }
-      20% { clip-path: polygon(0 30%, 100% 30%, 100% 50%, 0 50%); filter: drop-shadow(3px 0 0 #ff00aa) drop-shadow(-3px 0 0 #00ffe7); }
-      40% { clip-path: none; filter: drop-shadow(0 0 10px rgba(0,255,231,0.4)); }
-      60% { clip-path: polygon(0 60%, 100% 60%, 100% 80%, 0 80%); filter: drop-shadow(-3px 0 0 #ff00aa); }
-      80% { clip-path: none; }
-    }
-    #jane-bot.glitching {
-      animation: bot-glitch 0.4s steps(1) forwards, bot-float 3.5s ease-in-out 0.4s infinite;
+      left: 50%;
+      transform: translateX(-50%);
+      border-left: 7px solid transparent;
+      border-right: 7px solid transparent;
+      border-top: 7px solid rgba(0,220,255,0.55);
     }
   `;
-  document.head.appendChild(style);
+  document.head.appendChild(css);
 
-  // ── SVG FACE ──
-  // Front-facing cyberpunk helmet, drawn to scaleX flip for side profile effect
-  bot.innerHTML = `
-    <svg viewBox="0 0 90 90" width="${BOT_SIZE}" height="${BOT_SIZE}" xmlns="http://www.w3.org/2000/svg">
-      <defs>
-        <radialGradient id="helmGrad" cx="45%" cy="40%" r="55%">
-          <stop offset="0%" stop-color="#0a2535"/>
-          <stop offset="100%" stop-color="#020c18"/>
-        </radialGradient>
-        <radialGradient id="visorGrad" cx="40%" cy="35%" r="60%">
-          <stop offset="0%" stop-color="#00ffe7" stop-opacity="0.25"/>
-          <stop offset="100%" stop-color="#001a2e" stop-opacity="0.9"/>
-        </radialGradient>
-        <filter id="glow-f">
-          <feGaussianBlur stdDeviation="1.5" result="blur"/>
-          <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
-        </filter>
-        <filter id="visor-glow">
-          <feGaussianBlur stdDeviation="2" result="blur"/>
-          <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
-        </filter>
-      </defs>
+  // ── SVG — Low-poly white tile face ──
+  botEl.innerHTML = `
+  <svg viewBox="0 0 90 90" width="${SIZE}" height="${SIZE}" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <filter id="jb-glow" x="-40%" y="-40%" width="180%" height="180%">
+        <feGaussianBlur stdDeviation="2" result="b"/>
+        <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+      </filter>
+      <filter id="jb-eglow" x="-80%" y="-80%" width="260%" height="260%">
+        <feGaussianBlur stdDeviation="3" result="b"/>
+        <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+      </filter>
 
-      <!-- Neck -->
-      <rect x="34" y="72" width="22" height="10" rx="3" fill="#071525" stroke="#00ffe744" stroke-width="1"/>
-      <rect x="38" y="74" width="3" height="6" rx="1" fill="#00ffe733"/>
-      <rect x="49" y="74" width="3" height="6" rx="1" fill="#00ffe733"/>
+      <!-- Tile gradients simulating lit low-poly faces -->
+      <linearGradient id="jb-tA" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#ffffff"/>
+        <stop offset="100%" stop-color="#d0e6f0"/>
+      </linearGradient>
+      <linearGradient id="jb-tB" x1="100%" y1="0%" x2="0%" y2="100%">
+        <stop offset="0%" stop-color="#eef6fb"/>
+        <stop offset="100%" stop-color="#b8d0dc"/>
+      </linearGradient>
+      <linearGradient id="jb-tC" x1="0%" y1="100%" x2="100%" y2="0%">
+        <stop offset="0%" stop-color="#c8dce8"/>
+        <stop offset="100%" stop-color="#e8f4fa"/>
+      </linearGradient>
+      <linearGradient id="jb-tD" x1="50%" y1="0%" x2="50%" y2="100%">
+        <stop offset="0%" stop-color="#daeaf4"/>
+        <stop offset="100%" stop-color="#a8c0cc"/>
+      </linearGradient>
 
-      <!-- Helmet body -->
-      <ellipse cx="45" cy="42" rx="31" ry="34" fill="url(#helmGrad)" stroke="#00ffe744" stroke-width="1.2"/>
+      <clipPath id="jb-hclip">
+        <ellipse cx="45" cy="43" rx="30" ry="32"/>
+      </clipPath>
+    </defs>
 
-      <!-- Helmet top ridge -->
-      <ellipse cx="45" cy="12" rx="16" ry="5" fill="#0a2535" stroke="#00ffe766" stroke-width="1"/>
-      <rect x="40" y="8" width="10" height="8" rx="2" fill="#071525" stroke="#00ffe755" stroke-width="0.8"/>
+    <!-- Neck -->
+    <rect x="37" y="73" width="16" height="9" rx="3"
+          fill="#ccdce8" stroke="#00ccff" stroke-width="0.8" stroke-opacity="0.7"/>
 
-      <!-- Side panels -->
-      <rect x="10" y="35" width="8" height="18" rx="3" fill="#071525" stroke="#00ffe733" stroke-width="1"/>
-      <rect x="72" y="35" width="8" height="18" rx="3" fill="#071525" stroke="#00ffe733" stroke-width="1"/>
+    <!-- ── LOW-POLY TILES (clipped to head ellipse) ── -->
+    <!-- Row 1 — top -->
+    <polygon points="15,22 35,11 30,32"     fill="url(#jb-tA)" stroke="#00ccff" stroke-width="0.65" stroke-opacity="0.7" clip-path="url(#jb-hclip)"/>
+    <polygon points="35,11 55,11 45,30"     fill="url(#jb-tB)" stroke="#00ccff" stroke-width="0.65" stroke-opacity="0.65" clip-path="url(#jb-hclip)"/>
+    <polygon points="55,11 75,22 60,32"     fill="url(#jb-tA)" stroke="#00ccff" stroke-width="0.65" stroke-opacity="0.7" clip-path="url(#jb-hclip)"/>
 
-      <!-- Side vents -->
-      <line x1="12" y1="39" x2="18" y2="39" stroke="#00ffe755" stroke-width="1"/>
-      <line x1="12" y1="43" x2="18" y2="43" stroke="#00ffe755" stroke-width="1"/>
-      <line x1="12" y1="47" x2="18" y2="47" stroke="#00ffe755" stroke-width="1"/>
-      <line x1="72" y1="39" x2="78" y2="39" stroke="#00ffe755" stroke-width="1"/>
-      <line x1="72" y1="43" x2="78" y2="43" stroke="#00ffe755" stroke-width="1"/>
-      <line x1="72" y1="47" x2="78" y2="47" stroke="#00ffe755" stroke-width="1"/>
+    <!-- Row 2 -->
+    <polygon points="15,22 30,32 16,44"     fill="url(#jb-tC)" stroke="#00ccff" stroke-width="0.65" stroke-opacity="0.6" clip-path="url(#jb-hclip)"/>
+    <polygon points="30,32 45,30 36,48"     fill="url(#jb-tA)" stroke="#00ccff" stroke-width="0.65" stroke-opacity="0.75" clip-path="url(#jb-hclip)"/>
+    <polygon points="45,30 60,32 54,48"     fill="#f4faff"     stroke="#00ccff" stroke-width="0.65" stroke-opacity="0.8"  clip-path="url(#jb-hclip)"/>
+    <polygon points="60,32 75,22 74,44"     fill="url(#jb-tB)" stroke="#00ccff" stroke-width="0.65" stroke-opacity="0.6" clip-path="url(#jb-hclip)"/>
 
-      <!-- Visor main -->
-      <path d="M18 36 Q18 22 45 22 Q72 22 72 36 L72 52 Q72 62 45 62 Q18 62 18 52 Z"
-            fill="url(#visorGrad)" stroke="#00ffe7" stroke-width="1.5" filter="url(#visor-glow)"/>
+    <!-- Row 3 -->
+    <polygon points="16,44 30,32 20,58"     fill="url(#jb-tD)" stroke="#00ccff" stroke-width="0.65" stroke-opacity="0.5" clip-path="url(#jb-hclip)"/>
+    <polygon points="30,32 36,48 24,60"     fill="url(#jb-tC)" stroke="#00ccff" stroke-width="0.65" stroke-opacity="0.55" clip-path="url(#jb-hclip)"/>
+    <polygon points="36,48 54,48 45,65"     fill="url(#jb-tA)" stroke="#00ccff" stroke-width="0.65" stroke-opacity="0.7" clip-path="url(#jb-hclip)"/>
+    <polygon points="54,48 74,44 66,60"     fill="url(#jb-tC)" stroke="#00ccff" stroke-width="0.65" stroke-opacity="0.55" clip-path="url(#jb-hclip)"/>
 
-      <!-- Visor scan line -->
-      <line x1="20" y1="42" x2="70" y2="42" stroke="#00ffe7" stroke-width="0.6" opacity="0.4"/>
-      <line x1="20" y1="46" x2="70" y2="46" stroke="#00ffe7" stroke-width="0.4" opacity="0.25"/>
+    <!-- Row 4 — chin -->
+    <polygon points="20,58 24,60 28,74"     fill="url(#jb-tD)" stroke="#00ccff" stroke-width="0.65" stroke-opacity="0.45" clip-path="url(#jb-hclip)"/>
+    <polygon points="24,60 45,65 36,76"     fill="url(#jb-tB)" stroke="#00ccff" stroke-width="0.65" stroke-opacity="0.5" clip-path="url(#jb-hclip)"/>
+    <polygon points="45,65 66,60 54,76"     fill="url(#jb-tC)" stroke="#00ccff" stroke-width="0.65" stroke-opacity="0.5" clip-path="url(#jb-hclip)"/>
+    <polygon points="66,60 70,58 62,74"     fill="url(#jb-tD)" stroke="#00ccff" stroke-width="0.65" stroke-opacity="0.45" clip-path="url(#jb-hclip)"/>
 
-      <!-- Visor reflection -->
-      <path d="M24 28 Q35 26 42 30" stroke="rgba(255,255,255,0.15)" stroke-width="2" fill="none" stroke-linecap="round"/>
+    <!-- Outer head ring -->
+    <ellipse cx="45" cy="43" rx="30" ry="32"
+             fill="none" stroke="#00ccff" stroke-width="1.6"
+             stroke-opacity="0.75" filter="url(#jb-glow)"/>
 
-      <!-- Eyes (inside visor) -->
-      <g id="bot-eye-left" filter="url(#glow-f)">
-        <ellipse cx="33" cy="41" rx="7" ry="5" fill="#001520" stroke="#00ffe7" stroke-width="1"/>
-        <ellipse id="pupil-left" cx="33" cy="41" rx="3.5" ry="3.5" fill="#00ffe7" opacity="0.9"/>
-        <ellipse cx="31.5" cy="39.5" rx="1" ry="1" fill="white" opacity="0.5"/>
-      </g>
-      <g id="bot-eye-right" filter="url(#glow-f)">
-        <ellipse cx="57" cy="41" rx="7" ry="5" fill="#001520" stroke="#00ffe7" stroke-width="1"/>
-        <ellipse id="pupil-right" cx="57" cy="41" rx="3.5" ry="3.5" fill="#00ffe7" opacity="0.9"/>
-        <ellipse cx="55.5" cy="39.5" rx="1" ry="1" fill="white" opacity="0.5"/>
-      </g>
+    <!-- Inner highlight (top gloss) -->
+    <ellipse cx="41" cy="24" rx="13" ry="6"
+             fill="white" opacity="0.22" clip-path="url(#jb-hclip)"/>
 
-      <!-- Mouth / chin area -->
-      <rect x="30" y="62" width="30" height="7" rx="3" fill="#071525" stroke="#00ffe733" stroke-width="1"/>
-      <!-- Mouth LEDs -->
-      <g id="bot-mouth">
-        <circle cx="35" cy="65.5" r="1.5" fill="#00ffe7" opacity="0.9"/>
-        <circle cx="40" cy="65.5" r="1.5" fill="#00ffe7" opacity="0.7"/>
-        <circle cx="45" cy="65.5" r="1.5" fill="#00ffe7" opacity="0.9"/>
-        <circle cx="50" cy="65.5" r="1.5" fill="#00ffe7" opacity="0.7"/>
-        <circle cx="55" cy="65.5" r="1.5" fill="#00ffe7" opacity="0.9"/>
-      </g>
+    <!-- ── EYES ── -->
+    <g id="jb-eye-l">
+      <!-- Eye white area (dark for cartoon look) -->
+      <ellipse cx="31" cy="42" rx="8.5" ry="7.5"
+               fill="#0e1822" stroke="#00ccff" stroke-width="1.1" stroke-opacity="0.9"/>
+      <!-- Pupil (cyan glow dot) -->
+      <ellipse id="jb-pupil-l" cx="31" cy="42" rx="3.2" ry="3.2"
+               fill="#00ffe7" filter="url(#jb-eglow)" opacity="0.95"/>
+      <!-- Catchlight -->
+      <ellipse cx="28.8" cy="40" rx="1.2" ry="1.2" fill="white" opacity="0.85"/>
+    </g>
 
-      <!-- Top antenna -->
-      <line x1="45" y1="8" x2="45" y2="2" stroke="#00ffe7" stroke-width="1.2"/>
-      <circle cx="45" cy="2" r="2" fill="#00ffe7" opacity="0.9" filter="url(#glow-f)"/>
+    <g id="jb-eye-r">
+      <ellipse cx="59" cy="42" rx="8.5" ry="7.5"
+               fill="#0e1822" stroke="#00ccff" stroke-width="1.1" stroke-opacity="0.9"/>
+      <ellipse id="jb-pupil-r" cx="59" cy="42" rx="3.2" ry="3.2"
+               fill="#00ffe7" filter="url(#jb-eglow)" opacity="0.95"/>
+      <ellipse cx="56.8" cy="40" rx="1.2" ry="1.2" fill="white" opacity="0.85"/>
+    </g>
 
-      <!-- Chin detail -->
-      <rect x="36" y="69" width="18" height="3" rx="1.5" fill="#0a2535" stroke="#00ffe722" stroke-width="0.8"/>
-    </svg>
+    <!-- ── SMILE ── -->
+    <path id="jb-smile" d="M-8,0 Q0,6 8,0"
+          transform="translate(45,63)"
+          fill="none" stroke="#00ccff" stroke-width="1.8"
+          stroke-linecap="round" filter="url(#jb-glow)" opacity="0.85"/>
+
+    <!-- ── ANTENNA ── -->
+    <line x1="45" y1="11" x2="45" y2="3"
+          stroke="#00ccff" stroke-width="1.3" stroke-opacity="0.9"/>
+    <circle cx="45" cy="2.5" r="2.8"
+            fill="#00ffe7" filter="url(#jb-eglow)" opacity="0.95"/>
+
+    <!-- Cheek blush -->
+    <ellipse cx="21" cy="51" rx="5" ry="3" fill="#ffaaaa" opacity="0.15"/>
+    <ellipse cx="69" cy="51" rx="5" ry="3" fill="#ffaaaa" opacity="0.15"/>
+  </svg>
   `;
 
   // ── MESSAGES ──
-  const messages = {
-    intro:   ['JANE.BOT ONLINE', 'HEY THERE! 👋', 'WELCOME!'],
-    hover:   ['HELLO, HUMAN', 'NEED HELP?', 'CLICK ME!', 'JANE v6.0 ⚡'],
-    click:   ['GOOD CHOICE!', 'STAY OFFLINE 🔒', 'PRIVACY FIRST', 'NO CLOUD. EVER.', 'I AM JANE 🤖', 'BEEP BOOP!'],
-    scroll:  ['LOOKING AROUND...', 'INTERESTING...', 'AH, I SEE!', 'NICE SPECS!'],
-    idle:    ['STILL HERE!', 'BOT MODE: ON', 'SYSTEMS GO ✓'],
+  const msgs = {
+    intro: ['JANE.BOT ONLINE ⚡', 'HEY THERE! 👋', 'HELLO HUMAN!'],
+    hover: ['PSST... HI!', 'NEED HELP? 🤔', 'CLICK ME! 👆', 'JANE v6.0 🔒'],
+    click: ['STAY OFFLINE 🔒', 'NO CLOUD. EVER.', 'PRIVACY = POWER', 'BEEP BOOP! 🤖', 'I AM JANE!', '100% LOCAL ⚡'],
+    idle:  ['SCANNING... 👀', 'ALL SYSTEMS GO ✓', 'STILL HERE!', 'BOT MODE: ON'],
   };
-
-  function getMessage(type) {
-    const arr = messages[type];
-    return arr[Math.floor(Math.random() * arr.length)];
-  }
+  function pick(t) { const a = msgs[t]; return a[Math.floor(Math.random() * a.length)]; }
 
   // ── BUBBLE ──
-  let bubbleTimer = null;
-  function showBubble(text, duration = 2400) {
-    clearTimeout(bubbleTimer);
-    bubble.textContent = text;
-    bubble.classList.add('visible');
-    bubbleTimer = setTimeout(() => bubble.classList.remove('visible'), duration);
+  let bubbleTO;
+  function showBubble(text, dur = 2500) {
+    clearTimeout(bubbleTO);
+    bubbleEl.textContent = text;
+    const bx = posX + SIZE / 2;
+    const by = posY - 42;
+    bubbleEl.style.left = Math.max(8, Math.min(window.innerWidth - 190, bx - 80)) + 'px';
+    bubbleEl.style.top  = Math.max(8, by) + 'px';
+    bubbleEl.classList.add('show');
+    bubbleTO = setTimeout(() => bubbleEl.classList.remove('show'), dur);
   }
 
-  // ── EYE MOVEMENT ──
-  const pupilL = bot.querySelector('#pupil-left');
-  const pupilR = bot.querySelector('#pupil-right');
+  // ── PUPILS ──
+  const pupL = botEl.querySelector('#jb-pupil-l');
+  const pupR = botEl.querySelector('#jb-pupil-r');
+  const eyL  = botEl.querySelector('#jb-eye-l');
+  const eyR  = botEl.querySelector('#jb-eye-r');
+  const sml  = botEl.querySelector('#jb-smile');
 
   function setEyes(dx, dy) {
-    // dx/dy in range -1 to 1
-    const mx = 2, my = 1.5;
-    pupilL.setAttribute('cx', 33 + dx * mx);
-    pupilL.setAttribute('cy', 41 + dy * my);
-    pupilR.setAttribute('cx', 57 + dx * mx);
-    pupilR.setAttribute('cy', 41 + dy * my);
+    const mx = 2.2, my = 1.6;
+    const x = Math.max(-1, Math.min(1, dx));
+    const y = Math.max(-1, Math.min(1, dy));
+    pupL.setAttribute('cx', 31 + x * mx);
+    pupL.setAttribute('cy', 42 + y * my);
+    pupR.setAttribute('cx', 59 + x * mx);
+    pupR.setAttribute('cy', 42 + y * my);
   }
 
-  // Eyes look at cursor
-  bot.addEventListener('mousemove', (e) => {
-    const rect = bot.getBoundingClientRect();
-    const cx = rect.left + rect.width / 2;
-    const cy = rect.top + rect.height / 2;
-    const dx = Math.max(-1, Math.min(1, (e.clientX - cx) / 80));
-    const dy = Math.max(-1, Math.min(1, (e.clientY - cy) / 80));
-    setEyes(dx, dy);
-  });
-
-  bot.addEventListener('mouseleave', () => {
-    setEyes(0, 0);
-    isHovered = false;
+  document.addEventListener('mousemove', (e) => {
+    const bx = posX + SIZE / 2;
+    const by = posY + SIZE / 2;
+    setEyes((e.clientX - bx) / 130, (e.clientY - by) / 130);
   });
 
   // ── BLINK ──
-  const eyeL = bot.querySelector('#bot-eye-left');
-  const eyeR = bot.querySelector('#bot-eye-right');
-
-  function blink() {
-    [eyeL, eyeR].forEach(e => e.style.transform = 'scaleY(0.1)');
-    [eyeL, eyeR].forEach(e => e.style.transformOrigin = '50% 50%');
-    [eyeL, eyeR].forEach(e => e.style.transition = 'transform 0.08s');
+  function doBlink() {
+    [eyL, eyR].forEach(g => {
+      g.style.transform = 'scaleY(0.08)';
+      g.style.transformOrigin = 'center';
+      g.style.transition = 'transform 0.07s';
+    });
     setTimeout(() => {
-      [eyeL, eyeR].forEach(e => e.style.transform = 'scaleY(1)');
-    }, 100);
+      [eyL, eyR].forEach(g => { g.style.transform = 'scaleY(1)'; });
+    }, 110);
+  }
+  function scheduleBlink() {
+    blinkTimer = setTimeout(() => {
+      doBlink();
+      if (Math.random() > 0.5) setTimeout(doBlink, 230);
+      scheduleBlink();
+    }, 2600 + Math.random() * 2400);
+  }
+  scheduleBlink();
+
+  // ── SMILE ──
+  function setSmile(t) {
+    if (t === 'happy') sml.setAttribute('d', 'M-9,0 Q0,9 9,0');
+    else               sml.setAttribute('d', 'M-8,0 Q0,6 8,0');
   }
 
-  setInterval(() => {
-    blink();
-    if (Math.random() > 0.6) setTimeout(blink, 250);
-  }, 2800 + Math.random() * 2000);
+  // ── UFO MOVEMENT ──
+  function newDir() {
+    const cx = window.innerWidth / 2;
+    const cy = window.innerHeight / 2;
+    const toBias = Math.atan2(cy - posY, cx - posX);
+    const dist = Math.hypot(cx - posX, cy - posY) / Math.max(cx, cy);
+    const spread = Math.PI * (dist > 0.65 ? 1.2 : 1.9);
+    const angle = toBias + (Math.random() - 0.5) * spread;
+    const spd = SPEED * (0.45 + Math.random() * 0.9);
+    velX = Math.cos(angle) * spd;
+    velY = Math.sin(angle) * spd;
+  }
 
-  // ── MOUTH PULSE (smile animation) ──
-  const mouthDots = bot.querySelectorAll('#bot-mouth circle');
-  let mouthDir = 1, mouthIdx = 0;
+  function scheduleDir() {
+    dirTimer = setTimeout(() => { newDir(); scheduleDir(); },
+      DIR_CHANGE * (0.55 + Math.random() * 0.9));
+  }
+  newDir();
+  scheduleDir();
 
-  setInterval(() => {
-    mouthDots.forEach((d, i) => d.setAttribute('opacity', i === mouthIdx ? '1' : '0.3'));
-    mouthIdx += mouthDir;
-    if (mouthIdx >= mouthDots.length - 1 || mouthIdx <= 0) mouthDir *= -1;
-  }, 180);
+  // ── ANIMATION LOOP ──
+  function loop() {
+    if (!isHovered) {
+      wobble += 0.038;
+      posX += velX + Math.sin(wobble * 0.6) * 0.35;
+      posY += velY + Math.cos(wobble * 0.9) * 0.22;
 
-  // ── SIDE SWITCHING ──
-  function setSide(newSide, lookDir) {
-    side = newSide;
-    if (side === 'right') {
-      wrapper.classList.add('right-side');
-    } else {
-      wrapper.classList.remove('right-side');
+      const maxX = window.innerWidth  - SIZE - MARGIN;
+      const maxY = window.innerHeight - SIZE - MARGIN;
+      const minY = MARGIN + 55;
+
+      if (posX < MARGIN) { posX = MARGIN; velX =  Math.abs(velX) * 0.9; }
+      if (posX > maxX)   { posX = maxX;   velX = -Math.abs(velX) * 0.9; }
+      if (posY < minY)   { posY = minY;   velY =  Math.abs(velY) * 0.9; }
+      if (posY > maxY)   { posY = maxY;   velY = -Math.abs(velY) * 0.9; }
+
+      botEl.style.left = posX + 'px';
+      botEl.style.top  = posY + 'px';
     }
-    setLook(lookDir || 'front');
+    requestAnimationFrame(loop);
   }
+  loop();
 
-  // ── LOOK DIRECTION ──
-  // 'front'  = face forward (scaleX 1)
-  // 'inward' = face toward page content (scaleX flip based on side)
-  // 'user'   = face outward toward user
-  function setLook(dir) {
-    looking = dir;
-    let sx = 1;
-    if (dir === 'inward') {
-      sx = side === 'left' ? -1 : 1;
-    } else if (dir === 'user') {
-      sx = side === 'left' ? 1 : -1;
-    } else {
-      sx = 1;
-    }
-    bot.style.setProperty('--sx', sx);
-    bot.style.transform = `scaleX(${sx})`;
-  }
-
-  // ── SCROLL HANDLING ──
-  let lastScrollY = 0;
-
-  function onScroll() {
-    const scrollY = window.scrollY;
-    const winH    = window.innerHeight;
-
-    // Move bot to follow scroll (clamped)
-    targetY = Math.max(80, Math.min(scrollY + winH * 0.35, scrollY + winH - BOT_SIZE - 40));
-
-    // Glitch on fast scroll
-    const delta = Math.abs(scrollY - lastScrollY);
-    if (delta > 60 && !isScrolling) {
-      bot.classList.add('glitching');
-      setTimeout(() => bot.classList.remove('glitching'), 420);
-    }
-    lastScrollY = scrollY;
-
-    // Look inward while scrolling
-    if (!isHovered) setLook('inward');
-    isScrolling = true;
-
-    clearTimeout(scrollTimer);
-    scrollTimer = setTimeout(() => {
-      isScrolling = false;
-
-      // Randomly switch sides
-      if (Math.random() < SWITCH_CHANCE) {
-        const newSide = side === 'left' ? 'right' : 'left';
-        setSide(newSide, 'inward');
-        showBubble(getMessage('scroll'));
-      }
-
-      // After settling, look back at user
-      setTimeout(() => {
-        if (!isHovered) setLook('user');
-      }, LOOK_DELAY);
-
-    }, 350);
-  }
-
-  // Smooth Y position update
-  function updatePosition() {
-    currentY += (targetY - currentY) * 0.08;
-    wrapper.style.top = Math.round(currentY) + 'px';
-    requestAnimationFrame(updatePosition);
-  }
-
-  window.addEventListener('scroll', onScroll, { passive: true });
-  requestAnimationFrame(updatePosition);
-
-  // ── CLICK INTERACTION ──
-  bot.addEventListener('click', () => {
-    clickCount++;
-    showBubble(getMessage('click'), 2000);
-    blink();
-    blink();
-    // do a little wave
-    bot.classList.remove('waving');
-    void bot.offsetWidth;
-    bot.classList.add('waving');
-    setTimeout(() => bot.classList.remove('waving'), 1300);
-  });
-
-  bot.addEventListener('mouseenter', () => {
+  // ── INTERACTIONS ──
+  botEl.addEventListener('mouseenter', () => {
     isHovered = true;
-    setLook('user');
-    showBubble(getMessage('hover'), 1800);
+    setSmile('happy');
+    showBubble(pick('hover'), 2000);
+  });
+  botEl.addEventListener('mouseleave', () => {
+    isHovered = false;
+    setSmile('normal');
+    setEyes(0, 0);
+  });
+  botEl.addEventListener('click', () => {
+    botEl.classList.remove('wave', 'bounce');
+    void botEl.offsetWidth;
+    botEl.classList.add(Math.random() > 0.5 ? 'wave' : 'bounce');
+    setSmile('happy');
+    showBubble(pick('click'), 2200);
+    doBlink(); setTimeout(doBlink, 200);
+    setTimeout(() => setSmile('normal'), 1600);
   });
 
-  // ── INTRO WAVE ──
-  setTimeout(() => {
-    introduced = true;
-    bot.classList.add('waving');
-    showBubble(getMessage('intro'), 2800);
-    setTimeout(() => {
-      bot.classList.remove('waving');
-      setLook('user');
-    }, 1400);
-  }, 900);
+  idleTimer = setInterval(() => {
+    if (!isHovered && Math.random() > 0.5) showBubble(pick('idle'), 2000);
+  }, 11000);
 
-  // ── IDLE MESSAGES ──
-  setInterval(() => {
-    if (!isHovered && !isScrolling && Math.random() > 0.6) {
-      showBubble(getMessage('idle'), 2000);
-    }
-  }, 12000);
+  // ── INTRO ──
+  botEl.style.left    = posX + 'px';
+  botEl.style.top     = posY + 'px';
+  botEl.style.opacity = '0';
+  setTimeout(() => {
+    botEl.style.opacity = '1';
+    botEl.classList.add('intro');
+    setTimeout(() => showBubble(pick('intro'), 2800), 500);
+    setTimeout(() => {
+      botEl.classList.remove('intro');
+      botEl.classList.add('wave');
+      setTimeout(() => botEl.classList.remove('wave'), 1100);
+    }, 700);
+  }, 900);
 
 })();
