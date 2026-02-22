@@ -179,7 +179,7 @@ Before installing JANE, you must install:
 | Component | Minimum | Recommended |
 |-----------|---------|-------------|
 | **OS** | Windows 10 (64-bit) | Windows 11 (64-bit) |
-| **CPU** | Intel i5 / Ryzen 5 | Intel i7 / Ryzen 7 |
+| **CPU** | Intel i7 / Ryzen 7 | Intel i9 / Ryzen 9 |
 | **RAM** | 8 GB | 16 GB |
 | **GPU** | Not required | NVIDIA 4+ GB VRAM |
 | **Storage** | 12 GB free | 12 GB free |
