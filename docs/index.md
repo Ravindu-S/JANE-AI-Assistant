@@ -1,787 +1,929 @@
 ---
-title: Jane 6.0 Documentation
+layout: null
 ---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JANE 6.0 — Offline AI Assistant</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&family=Rajdhani:wght@300;400;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-<style>
-  :root {
-    --cyan: #00e5ff;
-    --cyan-dark: #0097a7;
-    --bg-dark: #0a1628;
-    --card-bg: #0f1a30;
-    --text-primary: #e0e0e0;
-    --glow: 0 0 10px #00e5ff, 0 0 20px #00e5ff, 0 0 30px #00e5ff;
-  }
-
-  body {
-    background: linear-gradient(135deg, var(--bg-dark) 0%, #0a0f20 100%);
-    color: var(--text-primary);
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    line-height: 1.6;
-    background-image: 
-      radial-gradient(circle at 10% 20%, rgba(0, 229, 255, 0.05) 0%, transparent 100%),
-      radial-gradient(circle at 90% 80%, rgba(0, 229, 255, 0.03) 0%, transparent 100%);
-    background-attachment: fixed;
-    margin: 0;
-    padding: 0;
-  }
-
-  .hero-section {
-    position: relative;
-    min-height: 70vh;
-    background: radial-gradient(circle at center, var(--bg-dark) 0%, #000c1a 100%);
-    overflow: hidden;
-  }
-
-  .hero-background {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: -1;
-    background: 
-      linear-gradient(120deg, rgba(10, 22, 40, 0.95) 0%, #0a1025 100%),
-      url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect fill="none" width="100" height="100"/><path d="M0 100 L100 0 M90 100 L100 90 M20 100 L100 20 M30 100 L100 30 M40 100 L100 40 M50 100 L100 50 M60 100 L100 60 M70 100 L100 70 M80 100 L100 80 M90 100 L100 90" fill="none" stroke="rgba(0, 229, 255, 0.05)" stroke-width="0.5"/></svg>');
-    background-size: 100% 100%;
-  }
-
-  .grid-pattern {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-image: 
-      linear-gradient(rgba(10, 22, 40, 0.9) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(10, 22, 40, 0.9) 1px, transparent 1px);
-    background-size: 40px 40px;
-    z-index: -1;
-    opacity: 0.3;
-  }
-
-  .hero-content {
-    position: relative;
-    z-index: 2;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    padding: 2rem;
-  }
-
-  .hero-glow {
-    position: absolute;
-    width: 300px;
-    height: 300px;
-    background: radial-gradient(circle, rgba(0, 229, 255, 0.15) 0%, transparent 70%);
-    border-radius: 50%;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: -1;
-  }
-
-  .hero-title {
-    font-size: 4.5rem;
-    font-weight: 700;
-    color: white;
-    margin-bottom: 1.5rem;
-    text-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
-    animation: title-glow 4s infinite alternate;
-  }
-
-  @keyframes title-glow {
-    0% { text-shadow: 0 0 10px #00e5ff, 0 0 20px #00e5ff, 0 0 30px #00e5ff; }
-    50% { text-shadow: 0 0 15px #00e5ff, 0 0 30px #00e5ff, 0 0 45px #00e5ff; }
-    100% { text-shadow: 0 0 10px #00e5ff, 0 0 20px #00e5ff, 0 0 30px #00e5ff; }
-  }
-
-  .hero-subtitle {
-    font-size: 1.8rem;
-    max-width: 800px;
-    margin: 0 auto 2rem;
-    color: #e0e0e0;
-    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.7);
-  }
-
-  .hero-cta {
-    display: flex;
-    gap: 1.5rem;
-    justify-content: center;
-    margin-top: 2rem;
-    flex-wrap: wrap;
-  }
-
-  .btn {
-    padding: 14px 36px;
-    border-radius: 8px;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    transition: all 0.3s ease;
-    position: relative;
-    overflow: hidden;
-    border: 1px solid var(--cyan);
-    background: transparent;
-    color: var(--cyan);
-    z-index: 1;
-  }
-
-  .btn-primary {
-    background: linear-gradient(135deg, var(--cyan-dark) 0%, var(--cyan) 100%);
-    color: white;
-    box-shadow: 0 4px 15px rgba(0, 151, 167, 0.4);
-  }
-
-  .btn:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 6px 20px rgba(0, 151, 167, 0.5);
-  }
-
-  .btn::before {
-    content: '';
-    position: absolute;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
-    background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
-    transform: rotate(30deg);
-    z-index: -1;
-  }
-
-  .btn-primary::before {
-    background: radial-gradient(circle, rgba(255, 255, 255, 0.2) 0%, transparent 70%);
-  }
-
-  .btn-primary:hover {
-    background: linear-gradient(135deg, var(--cyan) 0%, #00c7e0 100%);
-  }
-
-  .feature-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 2rem;
-    margin: 3rem 0;
-  }
-
-  .feature-card {
-    background: var(--card-bg);
-    border: 1px solid rgba(0, 229, 255, 0.15);
-    border-radius: 12px;
-    padding: 2.5rem;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
-    transition: all 0.3s ease;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .feature-card:hover {
-    transform: translateY(-10px);
-    border-color: var(--cyan);
-    box-shadow: 0 15px 40px rgba(0, 151, 167, 0.3);
-  }
-
-  .feature-card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(135deg, rgba(0, 229, 255, 0.03) 0%, transparent 100%);
-    z-index: -1;
-  }
-
-  .feature-card:hover::before {
-    background: linear-gradient(135deg, rgba(0, 229, 255, 0.08) 0%, transparent 100%);
-  }
-
-  .feature-icon {
-    width: 80px;
-    height: 80px;
-    background: rgba(0, 229, 255, 0.1);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0 auto 1.5rem;
-    position: relative;
-  }
-
-  .feature-icon::before {
-    content: '';
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    border-radius: 50%;
-    border: 1px solid var(--cyan);
-    animation: pulse 3s infinite;
-  }
-
-  .feature-icon::after {
-    content: '';
-    position: absolute;
-    width: 60%;
-    height: 60%;
-    background: var(--card-bg);
-    border-radius: 50%;
-  }
-
-  @keyframes pulse {
-    0% { box-shadow: 0 0 0 0 rgba(0, 229, 255, 0.5); }
-    70% { box-shadow: 0 0 0 15px rgba(0, 229, 255, 0); }
-    100% { box-shadow: 0 0 0 0 rgba(0, 229, 255, 0); }
-  }
-
-  .feature-title {
-    color: var(--cyan);
-    margin-bottom: 1rem;
-    font-size: 1.5rem;
-  }
-
-  .feature-content p {
-    color: #c0c0c0;
-    margin-bottom: 1.25rem;
-  }
-
-  .highlight-box {
-    background: rgba(0, 229, 255, 0.05);
-    border-left: 3px solid var(--cyan);
-    padding: 1.5rem;
-    border-radius: 0 4px 4px 0;
-    margin: 2rem 0;
-  }
-
-  .highlight-box h3 {
-    color: var(--cyan);
-    margin-top: 0;
-  }
-
-  .feature-list {
-    padding-left: 1.25rem;
-    margin-top: 1rem;
-  }
-
-  .feature-list li {
-    margin-bottom: 0.75rem;
-    position: relative;
-  }
-
-  .feature-list li::before {
-    content: '•';
-    color: var(--cyan);
-    font-size: 2rem;
-    position: absolute;
-    left: -1.25rem;
-    top: -0.25rem;
-  }
-
-  .card-glow {
-    position: absolute;
-    width: 200px;
-    height: 200px;
-    background: radial-gradient(circle, rgba(0, 229, 255, 0.2) 0%, transparent 70%);
-    border-radius: 50%;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%) scale(0);
-    opacity: 0;
-    transition: all 0.5s ease;
-  }
-
-  .feature-card:hover .card-glow {
-    transform: translate(-50%, -50%) scale(1.2);
-    opacity: 1;
-  }
-
-  .glow-effect {
-    box-shadow: var(--glow);
-  }
-
-  .pulse-effect {
-    animation: pulse-glow 2s infinite;
-  }
-
-  @keyframes pulse-glow {
-    0% { box-shadow: 0 0 15px rgba(0, 229, 255, 0.5); }
-    50% { box-shadow: 0 0 25px rgba(0, 229, 255, 0.8); }
-    100% { box-shadow: 0 0 15px rgba(0, 229, 255, 0.5); }
-  }
-
-  .section-title {
-    text-align: center;
-    font-size: 2.5rem;
-    color: var(--cyan);
-    margin: 3rem 0 2rem;
-    position: relative;
-  }
-
-  .section-title::after {
-    content: '';
-    position: absolute;
-    bottom: -10px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 80px;
-    height: 3px;
-    background: var(--cyan);
-    border-radius: 3px;
-  }
-
-  .getting-started {
-    background: var(--card-bg);
-    border-radius: 15px;
-    padding: 3rem;
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
-    margin: 4rem 0;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .getting-started::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(135deg, rgba(0, 229, 255, 0.05) 0%, transparent 100%);
-    z-index: -1;
-  }
-
-  .step-card {
-    background: rgba(15, 26, 48, 0.7);
-    border: 1px solid rgba(0, 229, 255, 0.15);
-    border-radius: 12px;
-    padding: 2rem;
-    text-align: center;
-    transition: all 0.3s ease;
-    height: 100%;
-    position: relative;
-  }
-
-  .step-number {
-    display: inline-block;
-    width: 60px;
-    height: 60px;
-    background: var(--cyan-dark);
-    color: white;
-    border-radius: 50%;
-    line-height: 60px;
-    font-weight: bold;
-    margin-bottom: 1.5rem;
-    box-shadow: 0 0 20px rgba(0, 229, 255, 0.4);
-  }
-
-  .step-card:hover {
-    transform: translateY(-10px);
-    border-color: var(--cyan);
-  }
-
-  .step-card:hover .step-number {
-    background: var(--cyan);
-    box-shadow: 0 0 25px rgba(0, 229, 255, 0.6);
-  }
-
-  .cta-section {
-    background: linear-gradient(135deg, var(--cyan-dark) 0%, var(--cyan) 100%);
-    color: white;
-    padding: 3.5rem 2rem;
-    border-radius: 15px;
-    margin: 3rem 0;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .cta-section::before {
-    content: '';
-    position: absolute;
-    top: -100px;
-    right: -100px;
-    width: 300px;
-    height: 300px;
-    background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
-    border-radius: 50%;
-  }
-
-  .cta-section::after {
-    content: '';
-    position: absolute;
-    bottom: -100px;
-    left: -100px;
-    width: 300px;
-    height: 300px;
-    background: radial-gradient(circle, rgba(255, 255, 255, 0.05) 0%, transparent 70%);
-    border-radius: 50%;
-  }
-
-  .cta-title {
-    font-size: 2.5rem;
-    margin-bottom: 1.5rem;
-    position: relative;
-    z-index: 2;
-  }
-
-  .cta-subtitle {
-    font-size: 1.25rem;
-    margin-bottom: 2rem;
-    max-width: 800px;
-    margin-left: auto;
-    margin-right: auto;
-    position: relative;
-    z-index: 2;
-  }
-
-  .cta-buttons {
-    display: flex;
-    justify-content: center;
-    gap: 1.5rem;
-    flex-wrap: wrap;
-  }
-
-  .btn-cta {
-    background: rgba(255, 255, 255, 0.15);
-    border: none;
-    color: white;
-    padding: 12px 32px;
-    font-weight: 600;
-    transition: all 0.3s ease;
-  }
-
-  .btn-cta:hover {
-    background: rgba(255, 255, 255, 0.25);
-    transform: translateY(-3px);
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-  }
-
-  .btn-cta-primary {
-    background: white;
-    color: var(--cyan);
-  }
-
-  .btn-cta-primary:hover {
-    background: #f0f0f0;
-  }
-
-  .footer {
-    text-align: center;
-    padding: 3rem 2rem;
-    color: #a0a0a0;
-    border-top: 1px solid rgba(0, 229, 255, 0.1);
-    margin-top: 2rem;
-  }
-
-  .footer a {
-    color: var(--cyan);
-    text-decoration: none;
-    transition: all 0.3s ease;
-  }
-
-  .footer a:hover {
-    color: #00c7e0;
-  }
-
-  .footer-content {
-    max-width: 800px;
-    margin: 0 auto;
-  }
-
-  .footer-copyright {
-    margin-top: 1.5rem;
-    font-size: 0.9rem;
-  }
-
-  @media (max-width: 768px) {
-    .hero-title {
-      font-size: 2.5rem;
+    :root {
+      --cyan: #00ffe7;
+      --cyan2: #00b4d8;
+      --magenta: #ff00aa;
+      --yellow: #f5e642;
+      --bg: #020c18;
+      --bg2: #060f1e;
+      --card: #071525;
+      --border: rgba(0,255,231,0.18);
+      --glow-c: 0 0 8px #00ffe7, 0 0 20px #00ffe7aa;
+      --glow-m: 0 0 8px #ff00aa, 0 0 20px #ff00aa88;
     }
-    
-    .hero-subtitle {
-      font-size: 1.2rem;
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: #c8dde8;
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 1.05rem;
+      line-height: 1.65;
+      overflow-x: hidden;
+      cursor: default;
     }
-    
-    .hero-cta {
+
+    /* ───────── SCANLINES OVERLAY ───────── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 2px,
+        rgba(0,0,0,0.07) 2px,
+        rgba(0,0,0,0.07) 4px
+      );
+      pointer-events: none;
+      z-index: 9999;
+    }
+
+    /* ───────── CANVAS MATRIX ───────── */
+    #matrix-canvas {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      z-index: 0;
+      pointer-events: none;
+      opacity: 0.13;
+    }
+
+    /* ───────── NAV ───────── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.85rem 2.5rem;
+      background: rgba(2,12,24,0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-logo {
+      font-family: 'Orbitron', monospace;
+      font-size: 1.3rem;
+      font-weight: 900;
+      color: var(--cyan);
+      text-shadow: var(--glow-c);
+      letter-spacing: 3px;
+    }
+
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.85rem;
+      color: #7fb8c8;
+      text-decoration: none;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      transition: color 0.2s, text-shadow 0.2s;
+    }
+    .nav-links a:hover { color: var(--cyan); text-shadow: var(--glow-c); }
+
+    /* ───────── HERO ───────── */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
       flex-direction: column;
       align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 6rem 2rem 4rem;
+      z-index: 2;
+      overflow: hidden;
     }
-  }
 
-  /* Animated binary background */
-  .binary-background {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: -2;
-    pointer-events: none;
-    opacity: 0.15;
-    font-family: monospace;
-    font-size: 1.2rem;
-    color: var(--cyan);
-    overflow: hidden;
-    animation: binary-scroll 30s linear infinite;
-  }
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 70% 50% at 50% 40%, rgba(0,255,231,0.07) 0%, transparent 70%),
+        radial-gradient(ellipse 40% 30% at 80% 70%, rgba(255,0,170,0.05) 0%, transparent 60%);
+      pointer-events: none;
+    }
 
-  @keyframes binary-scroll {
-    0% { transform: translateY(0); }
-    100% { transform: translateY(-100%); }
-  }
+    /* Grid lines */
+    .hero::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(0,255,231,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,255,231,0.04) 1px, transparent 1px);
+      background-size: 50px 50px;
+      pointer-events: none;
+    }
 
-  .binary-column {
-    position: absolute;
-    top: 0;
-    width: 1rem;
-    height: 100%;
-    animation: binary-flow 15s linear infinite;
-    white-space: pre;
-    line-height: 1.5rem;
-  }
+    /* ── GLITCH TITLE ── */
+    .glitch-wrap { position: relative; display: inline-block; }
 
-  @keyframes binary-flow {
-    0% { transform: translateY(-100%); }
-    100% { transform: translateY(100%); }
-  }
+    .hero-title {
+      font-family: 'Orbitron', monospace;
+      font-size: clamp(3.5rem, 10vw, 8rem);
+      font-weight: 900;
+      color: #fff;
+      letter-spacing: 0.12em;
+      line-height: 1;
+      text-shadow: var(--glow-c);
+      position: relative;
+      animation: flicker 6s infinite;
+    }
 
-  /* Add these to your existing index.md file */
-  .hero-features {
-    display: flex;
-    justify-content: center;
-    gap: 1.5rem;
-    margin: 2rem 0;
-    flex-wrap: wrap;
-  }
+    .hero-title::before,
+    .hero-title::after {
+      content: attr(data-text);
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%;
+    }
+    .hero-title::before {
+      color: var(--magenta);
+      animation: glitch-1 3s infinite;
+      clip-path: polygon(0 30%, 100% 30%, 100% 50%, 0 50%);
+    }
+    .hero-title::after {
+      color: var(--cyan);
+      animation: glitch-2 3.5s infinite;
+      clip-path: polygon(0 60%, 100% 60%, 100% 75%, 0 75%);
+    }
 
-  .hero-feature {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    background: rgba(0, 229, 255, 0.05);
-    border-radius: 8px;
-    padding: 8px 15px;
-    font-size: 0.9rem;
-    animation: feature-glow 4s infinite alternate;
-  }
+    @keyframes glitch-1 {
+      0%, 90%, 100% { transform: translateX(0); opacity: 0; }
+      91% { transform: translateX(-4px); opacity: 0.9; }
+      93% { transform: translateX(4px); opacity: 0.6; }
+      95% { transform: translateX(-2px); opacity: 0.8; }
+      97% { transform: translateX(0); opacity: 0; }
+    }
+    @keyframes glitch-2 {
+      0%, 85%, 100% { transform: translateX(0); opacity: 0; }
+      86% { transform: translateX(3px); opacity: 0.7; }
+      88% { transform: translateX(-3px); opacity: 0.5; }
+      90% { transform: translateX(1px); opacity: 0; }
+    }
+    @keyframes flicker {
+      0%, 95%, 100% { opacity: 1; }
+      96% { opacity: 0.85; }
+      97% { opacity: 1; }
+      98% { opacity: 0.9; }
+    }
 
-  @keyframes feature-glow {
-    0% { background: rgba(0, 229, 255, 0.05); }
-    50% { background: rgba(0, 229, 255, 0.1); }
-    100% { background: rgba(0, 229, 255, 0.05); }
-  }
-</style>
+    .hero-version {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 1rem;
+      color: var(--magenta);
+      letter-spacing: 6px;
+      text-transform: uppercase;
+      margin-bottom: 0.5rem;
+      text-shadow: var(--glow-m);
+    }
 
-<div class="binary-background">
-  <div class="binary-column" style="left: 0%;">01010111 10101111 00001011 11001010</div>
-  <div class="binary-column" style="left: 10%;">10100011 01010001 11111000 00010101</div>
-  <div class="binary-column" style="left: 20%;">11011100 00110101 01011100 11001001</div>
-  <div class="binary-column" style="left: 30%;">00011011 10100100 00011001 11100111</div>
-  <div class="binary-column" style="left: 40%;">11110011 01001010 10001111 01100101</div>
-  <div class="binary-column" style="left: 50%;">10100011 01010001 11111000 00010101</div>
-  <div class="binary-column" style="left: 60%;">01011110 11001010 00001111 10001101</div>
-  <div class="binary-column" style="left: 70%;">10100111 01001001 11001000 00101001</div>
-  <div class="binary-column" style="left: 80%;">00011011 10100100 00011001 11100111</div>
-  <div class="binary-column" style="left: 90%;">10010101 00100111 11001010 00010101</div>
-</div>
+    .hero-subtitle {
+      font-size: clamp(1rem, 2.5vw, 1.35rem);
+      color: #7fb8c8;
+      max-width: 600px;
+      margin: 1.5rem auto 2rem;
+      font-weight: 300;
+      letter-spacing: 0.5px;
+    }
 
-<div class="hero-section">
-  <div class="hero-background"></div>
-  <div class="grid-pattern"></div>
-  <div class="hero-content">
-    <div class="hero-glow"></div>
-    <h1 class="hero-title glow-effect pulse-effect">JANE 6.0</h1>
-    <p class="hero-subtitle">The only fully offline AI virtual assistant that works on Windows without internet</p>
-    
-    <div class="hero-features">
-      <div class="hero-feature">
-        <span>🔒 100% Privacy</span>
-      </div>
-      <div class="hero-feature">
-        <span>🧠 Fully Offline</span>
-      </div>
-      <div class="hero-feature">
-        <span>💻 Windows 10/11</span>
-      </div>
-      <div class="hero-feature">
-        <span>⚡ No Data Collection</span>
-      </div>
+    /* ── BADGES ── */
+    .badges {
+      display: flex;
+      gap: 0.85rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 2.5rem;
+    }
+    .badge {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.75rem;
+      padding: 6px 14px;
+      border: 1px solid var(--border);
+      border-radius: 2px;
+      color: var(--cyan);
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      background: rgba(0,255,231,0.04);
+      transition: all 0.25s;
+    }
+    .badge:hover {
+      background: rgba(0,255,231,0.1);
+      border-color: var(--cyan);
+      box-shadow: var(--glow-c);
+    }
+
+    /* ── BUTTONS ── */
+    .btn-row { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+
+    .btn {
+      font-family: 'Orbitron', monospace;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      padding: 14px 32px;
+      border: none;
+      border-radius: 2px;
+      text-decoration: none;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #008b75, var(--cyan));
+      color: #000;
+      clip-path: polygon(8px 0, 100% 0, calc(100% - 8px) 100%, 0 100%);
+    }
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 30px rgba(0,255,231,0.4);
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--cyan);
+      border: 1px solid var(--cyan);
+      clip-path: polygon(8px 0, 100% 0, calc(100% - 8px) 100%, 0 100%);
+    }
+    .btn-outline:hover {
+      background: rgba(0,255,231,0.08);
+      transform: translateY(-2px);
+      box-shadow: var(--glow-c);
+    }
+
+    /* Shimmer on hover */
+    .btn::after {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -100%;
+      width: 60%;
+      height: 200%;
+      background: rgba(255,255,255,0.15);
+      transform: skewX(-20deg);
+      transition: left 0.5s;
+    }
+    .btn:hover::after { left: 150%; }
+
+    /* ───────── SECTION LAYOUT ───────── */
+    section { position: relative; z-index: 2; padding: 6rem 2rem; }
+    .container { max-width: 1100px; margin: 0 auto; }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 3.5rem;
+    }
+    .section-eyebrow {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.75rem;
+      color: var(--magenta);
+      letter-spacing: 5px;
+      text-transform: uppercase;
+      margin-bottom: 0.75rem;
+      text-shadow: var(--glow-m);
+    }
+    .section-title {
+      font-family: 'Orbitron', monospace;
+      font-size: clamp(1.6rem, 4vw, 2.4rem);
+      font-weight: 700;
+      color: #fff;
+      letter-spacing: 2px;
+    }
+    .section-title span { color: var(--cyan); }
+
+    /* ───────── FEATURE CARDS ───────── */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 2rem;
+      position: relative;
+      overflow: hidden;
+      transition: border-color 0.3s, transform 0.3s;
+    }
+    .card:hover {
+      border-color: var(--cyan);
+      transform: translateY(-6px);
+      box-shadow: 0 0 30px rgba(0,255,231,0.1), inset 0 0 30px rgba(0,255,231,0.02);
+    }
+
+    /* Corner accent */
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0; right: 0;
+      width: 40px; height: 40px;
+      border-top: 2px solid var(--cyan);
+      border-right: 2px solid var(--cyan);
+      transition: width 0.3s, height 0.3s;
+    }
+    .card:hover::before { width: 60px; height: 60px; }
+
+    .card::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0;
+      width: 40px; height: 40px;
+      border-bottom: 2px solid var(--magenta);
+      border-left: 2px solid var(--magenta);
+      transition: width 0.3s, height 0.3s;
+    }
+    .card:hover::after { width: 60px; height: 60px; }
+
+    .card-icon {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      display: block;
+    }
+
+    .card h3 {
+      font-family: 'Orbitron', monospace;
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--cyan);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 0.75rem;
+    }
+
+    .card p { color: #7fb8c8; font-size: 0.95rem; margin-bottom: 1rem; }
+
+    .card ul {
+      list-style: none;
+      padding: 0;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.8rem;
+      color: #5a8a9a;
+    }
+    .card ul li { padding: 4px 0; }
+    .card ul li::before { content: '> '; color: var(--cyan); }
+
+    /* ───────── STEPS ───────── */
+    .steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 2rem; }
+
+    .step {
+      text-align: center;
+      padding: 2.5rem 1.5rem;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      transition: all 0.3s;
+      position: relative;
+    }
+    .step:hover {
+      border-color: var(--cyan);
+      box-shadow: 0 0 30px rgba(0,255,231,0.12);
+      transform: translateY(-5px);
+    }
+
+    .step-num {
+      font-family: 'Orbitron', monospace;
+      font-size: 3rem;
+      font-weight: 900;
+      color: transparent;
+      -webkit-text-stroke: 1px var(--cyan);
+      line-height: 1;
+      margin-bottom: 1rem;
+      text-shadow: none;
+      filter: drop-shadow(0 0 8px var(--cyan));
+    }
+
+    .step h3 {
+      font-family: 'Orbitron', monospace;
+      font-size: 0.9rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: #fff;
+      margin-bottom: 0.5rem;
+    }
+    .step p { color: #7fb8c8; font-size: 0.9rem; }
+
+    /* Connector line between steps */
+    .step::after {
+      content: '//';
+      position: absolute;
+      right: -1.25rem;
+      top: 50%;
+      transform: translateY(-50%);
+      font-family: 'Share Tech Mono', monospace;
+      color: var(--border);
+      font-size: 1.2rem;
+      pointer-events: none;
+    }
+    .step:last-child::after { display: none; }
+
+    /* ───────── SPECS / INFO BOX ───────── */
+    .info-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+    }
+    @media (max-width: 640px) { .info-grid { grid-template-columns: 1fr; } }
+
+    .spec-block {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--cyan);
+      padding: 1.5rem;
+      border-radius: 0 4px 4px 0;
+    }
+    .spec-block h4 {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.75rem;
+      color: var(--magenta);
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      margin-bottom: 0.5rem;
+    }
+    .spec-block p {
+      font-size: 0.95rem;
+      color: #7fb8c8;
+    }
+
+    /* ───────── TERMINAL ───────── */
+    .terminal {
+      background: #000d1a;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 1.5rem 2rem;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.88rem;
+      color: var(--cyan);
+      position: relative;
+      overflow: hidden;
+    }
+    .terminal::before {
+      content: '● ● ●';
+      position: absolute;
+      top: 0.6rem;
+      left: 1rem;
+      font-size: 0.6rem;
+      color: #444;
+      letter-spacing: 4px;
+    }
+    .terminal .line { padding: 2px 0; }
+    .terminal .prompt { color: var(--magenta); }
+    .terminal .comment { color: #3a6070; }
+    .terminal .output { color: #7fb8c8; }
+    .terminal .success { color: #00ff88; }
+
+    /* Blinking cursor */
+    .cursor {
+      display: inline-block;
+      width: 8px;
+      height: 1em;
+      background: var(--cyan);
+      vertical-align: text-bottom;
+      animation: blink 1s infinite;
+    }
+    @keyframes blink { 0%, 50% { opacity: 1; } 51%, 100% { opacity: 0; } }
+
+    /* ───────── CTA SECTION ───────── */
+    .cta-section {
+      text-align: center;
+      padding: 6rem 2rem;
+      position: relative;
+      z-index: 2;
+      background: linear-gradient(180deg, transparent, rgba(0,255,231,0.025) 50%, transparent);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .cta-section h2 {
+      font-family: 'Orbitron', monospace;
+      font-size: clamp(1.5rem, 4vw, 2.5rem);
+      color: #fff;
+      letter-spacing: 3px;
+      margin-bottom: 1rem;
+    }
+    .cta-section p {
+      color: #7fb8c8;
+      max-width: 550px;
+      margin: 0 auto 2rem;
+    }
+
+    /* ───────── FOOTER ───────── */
+    footer {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      padding: 2.5rem 2rem;
+      border-top: 1px solid var(--border);
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.78rem;
+      color: #2a5060;
+      letter-spacing: 1px;
+    }
+    footer a { color: var(--cyan); text-decoration: none; }
+    footer a:hover { text-shadow: var(--glow-c); }
+
+    /* ───────── DIVIDER ───────── */
+    .divider {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--cyan), var(--magenta), var(--cyan), transparent);
+      margin: 0 auto;
+      max-width: 600px;
+      opacity: 0.4;
+    }
+
+    /* ───────── ANIMATED STAT NUMBERS ───────── */
+    .stats-row {
+      display: flex;
+      justify-content: center;
+      gap: 3rem;
+      flex-wrap: wrap;
+      margin: 3rem 0;
+    }
+    .stat {
+      text-align: center;
+    }
+    .stat-num {
+      font-family: 'Orbitron', monospace;
+      font-size: 2.5rem;
+      font-weight: 900;
+      color: var(--cyan);
+      text-shadow: var(--glow-c);
+      display: block;
+    }
+    .stat-label {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.72rem;
+      color: #3a7080;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+    }
+
+    /* ───────── SCROLL REVEAL ───────── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ───────── RESPONSIVE ───────── */
+    @media (max-width: 768px) {
+      nav { padding: 0.75rem 1.25rem; }
+      .nav-links { gap: 1rem; }
+      .card-grid { grid-template-columns: 1fr; }
+      .step::after { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Matrix canvas -->
+<canvas id="matrix-canvas"></canvas>
+
+<!-- NAV -->
+<nav>
+  <span class="nav-logo">JANE</span>
+  <ul class="nav-links">
+    <li><a href="#features">Features</a></li>
+    <li><a href="#install">Install</a></li>
+    <li><a href="#specs">Specs</a></li>
+    <li><a href="https://github.com/Ravindu-S/JANE-AI-Assistant" target="_blank">GitHub</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-version">VERSION 6.0 — STABLE RELEASE</div>
+  <div class="glitch-wrap">
+    <h1 class="hero-title" data-text="JANE">JANE</h1>
+  </div>
+  <p class="hero-subtitle">The fully offline AI virtual assistant for Windows. No cloud. No surveillance. No compromise.</p>
+
+  <div class="badges">
+    <span class="badge">🔒 100% Offline</span>
+    <span class="badge">🧠 Llama 3 8B</span>
+    <span class="badge">💻 Windows 10/11</span>
+    <span class="badge">⚡ Zero Data Collection</span>
+    <span class="badge">🎙 Voice-First</span>
+  </div>
+
+  <div class="btn-row">
+    <a href="#install" class="btn btn-primary">Get Started</a>
+    <a href="https://github.com/Ravindu-S/JANE-AI-Assistant/releases" target="_blank" class="btn btn-outline">Download</a>
+  </div>
+
+  <div class="stats-row" style="margin-top:4rem;">
+    <div class="stat">
+      <span class="stat-num" data-target="100">0</span>
+      <span class="stat-label">% Local Processing</span>
     </div>
-    
-    <div class="hero-cta">
-      <a href="/installation" class="btn btn-primary pulse-effect">Get Started</a>
-      <a href="https://github.com/Ravindu-S/JANE-AI-Assistant/releases" class="btn">Download Now</a>
+    <div class="stat">
+      <span class="stat-num" data-target="0">1</span>
+      <span class="stat-label">KB Data Sent</span>
+    </div>
+    <div class="stat">
+      <span class="stat-num" data-target="6">0</span>
+      <span class="stat-label">Major Version</span>
     </div>
   </div>
-</div>
+</section>
 
-<div class="content-section" style="max-width: 1200px; margin: 0 auto; padding: 2rem 1rem;">
+<div class="divider"></div>
 
-  <div class="feature-grid">
-    <div class="feature-card">
-      <div class="card-glow"></div>
-      <div class="feature-icon">
-        <img src="assets/logos/ai.png" alt="AI" style="width: 45px; height: 45px;">
-      </div>
-      <h3 class="feature-title">Offline AI Power</h3>
-      <div class="feature-content">
-        <p>No internet required for core features. All AI processing happens locally on your device with Ollama + Llama 3.</p>
-        <ul class="feature-list">
-          <li>100% local processing</li>
-          <li>Works without internet</li>
-          <li>Privacy-first design</li>
-          <li>Llama 3 8B model</li>
-        </ul>
-      </div>
+<!-- FEATURES -->
+<section id="features">
+  <div class="container">
+    <div class="section-header reveal">
+      <p class="section-eyebrow">// Capabilities</p>
+      <h2 class="section-title">Built for <span>Power Users</span></h2>
     </div>
-    
-    <div class="feature-card">
-      <div class="card-glow"></div>
-      <div class="feature-icon">
-        <img src="assets/logos/security.png" alt="Security" style="width: 45px; height: 45px;">
-      </div>
-      <h3 class="feature-title">Privacy First</h3>
-      <div class="feature-content">
-        <p>Your conversations, voice recordings, and data never leave your device. No cloud, no data collection.</p>
-        <ul class="feature-list">
-          <li>End-to-end local processing</li>
-          <li>Zero data transmission</li>
-          <li>Cryptographic identity verification</li>
-          <li>File integrity checking</li>
-        </ul>
-      </div>
-    </div>
-    
-    <div class="feature-card">
-      <div class="card-glow"></div>
-      <div class="feature-icon">
-        <img src="assets/logos/voice.png" alt="Voice" style="width: 45px; height: 45px;">
-      </div>
-      <h3 class="feature-title">Natural Interaction</h3>
-      <div class="feature-content">
-        <p>Speak naturally - no rigid commands. Jane understands context and adapts to your style.</p>
-        <ul class="feature-list">
+    <div class="card-grid">
+      <div class="card reveal">
+        <span class="card-icon">🧠</span>
+        <h3>Offline AI Engine</h3>
+        <p>Powered by Ollama + Llama 3 8B running entirely on your hardware. No internet dependency for core AI features.</p>
+        <ul>
+          <li>Local model inference</li>
           <li>Context-aware conversations</li>
-          <li>Emotional intelligence</li>
           <li>Advanced NLU</li>
-          <li>Correction system</li>
+          <li>Privacy-first architecture</li>
         </ul>
       </div>
-    </div>
-  </div>
-
-  <div class="getting-started">
-    <h2 class="section-title">Getting Started in 3 Steps</h2>
-    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; margin-top: 2rem;">
-      <div class="step-card">
-        <div class="step-number">1</div>
-        <h3>Download</h3>
-        <p>Get the latest installer from the releases page</p>
-      </div>
-      
-      <div class="step-card">
-        <div class="step-number">2</div>
-        <h3>Install</h3>
-        <p>Run the installer and follow the wizard</p>
-      </div>
-      
-      <div class="step-card">
-        <div class="step-number">3</div>
-        <h3>Activate</h3>
-        <p>Press Ctrl+Shift+J to start using Jane</p>
-      </div>
-    </div>
-  </div>
-
-  <div class="highlight-box">
-    <h3>Why Jane is Different</h3>
-    <p>Jane 6.0 is the only AI assistant that runs entirely on your machine. No cloud, no data collection, no internet required for core features. Everything happens locally on your device - your privacy is guaranteed.</p>
-  </div>
-
-  <div class="feature-section" style="margin: 4rem 0;">
-    <h2 class="section-title">Key Features</h2>
-    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
-      <div style="background: var(--card-bg); border-radius: 10px; padding: 2rem; box-shadow: 0 4px 15px rgba(0,0,0,0.08);">
-        <h3 style="color: var(--cyan); margin-bottom: 1rem;">Voice-First Interaction</h3>
-        <ul style="padding-left: 1.25rem; margin-top: 1rem;">
-          <li>Wake word "Hey Jarvis"</li>
-          <li>Hotkey activation (Ctrl+Shift+J)</li>
-          <li>Natural language understanding</li>
-          <li>Context-aware conversations</li>
+      <div class="card reveal">
+        <span class="card-icon">🎙</span>
+        <h3>Voice-First Interface</h3>
+        <p>Activate with "Hey Jarvis" or Ctrl+Shift+J. Jane understands natural language — no rigid commands.</p>
+        <ul>
+          <li>Wake word detection</li>
           <li>Emotional intelligence</li>
+          <li>Correction & feedback system</li>
+          <li>Hotkey activation</li>
         </ul>
       </div>
-      
-      <div style="background: var(--card-bg); border-radius: 10px; padding: 2rem; box-shadow: 0 4px 15px rgba(0,0,0,0.08);">
-        <h3 style="color: var(--cyan); margin-bottom: 1rem;">System Control</h3>
-        <ul style="padding-left: 1.25rem; margin-top: 1rem;">
-          <li>Volume control (system + browser)</li>
-          <li>Brightness control</li>
+      <div class="card reveal">
+        <span class="card-icon">🖥</span>
+        <h3>System Control</h3>
+        <p>Full control over your Windows environment using only your voice.</p>
+        <ul>
+          <li>Volume & brightness control</li>
           <li>App management (open/close/switch)</li>
-          <li>Media control (play/pause/skip)</li>
+          <li>Media playback control</li>
           <li>Reminders & alarms</li>
         </ul>
       </div>
-      
-      <div style="background: var(--card-bg); border-radius: 10px; padding: 2rem; box-shadow: 0 4px 15px rgba(0,0,0,0.08);">
-        <h3 style="color: var(--cyan); margin-bottom: 1rem;">Web & Screen Analysis</h3>
-        <ul style="padding-left: 1.25rem; margin-top: 1rem;">
+      <div class="card reveal">
+        <span class="card-icon">🔍</span>
+        <h3>Web & Screen Analysis</h3>
+        <p>Interact with your screen intelligently. Jane reads and explains what's on display.</p>
+        <ul>
+          <li>OCR screen reading</li>
+          <li>AI-powered screen explanation</li>
           <li>Google search & YouTube</li>
-          <li>Screen reading (OCR)</li>
-          <li>Screen explanation (AI analysis)</li>
-          <li>Screenshot capture</li>
-          <li>Ad skipping for YouTube</li>
+          <li>Ad skipping (YouTube)</li>
         </ul>
       </div>
-      
-      <div style="background: var(--card-bg); border-radius: 10px; padding: 2rem; box-shadow: 0 4px 15px rgba(0,0,0,0.08);">
-        <h3 style="color: var(--cyan); margin-bottom: 1rem;">Privacy & Security</h3>
-        <ul style="padding-left: 1.25rem; margin-top: 1rem;">
-          <li>100% local processing</li>
-          <li>No internet required (core features)</li>
+      <div class="card reveal">
+        <span class="card-icon">🔐</span>
+        <h3>Privacy & Security</h3>
+        <p>Cryptographic identity verification, file integrity checking, and zero data transmission.</p>
+        <ul>
           <li>Cryptographic identity verification</li>
           <li>File integrity checking</li>
           <li>Anti-tampering protection</li>
+          <li>No telemetry, ever</li>
+        </ul>
+      </div>
+      <div class="card reveal">
+        <span class="card-icon">⚙</span>
+        <h3>Deep Integration</h3>
+        <p>Seamlessly embedded in your Windows workflow. Lightweight, fast, always ready.</p>
+        <ul>
+          <li>System tray integration</li>
+          <li>Startup on boot option</li>
+          <li>Low resource footprint</li>
+          <li>Instant hotkey response</li>
         </ul>
       </div>
     </div>
   </div>
+</section>
 
-  <div class="cta-section">
-    <h2 class="cta-title">Ready to Experience the Future?</h2>
-    <p class="cta-subtitle">Jane 6.0 puts AI in your hands, without compromising your privacy or requiring internet connection.</p>
-    <div class="cta-buttons">
-      <a href="/installation" class="btn btn-cta btn-cta-primary">Installation Guide</a>
-      <a href="https://github.com/Ravindu-S/JANE-AI-Assistant/releases" class="btn btn-cta">Download Now</a>
+<div class="divider"></div>
+
+<!-- INSTALL STEPS -->
+<section id="install">
+  <div class="container">
+    <div class="section-header reveal">
+      <p class="section-eyebrow">// Quick Start</p>
+      <h2 class="section-title">Up in <span>3 Steps</span></h2>
+    </div>
+    <div class="steps">
+      <div class="step reveal">
+        <div class="step-num">01</div>
+        <h3>Download</h3>
+        <p>Grab the latest installer from the GitHub releases page.</p>
+      </div>
+      <div class="step reveal">
+        <div class="step-num">02</div>
+        <h3>Install</h3>
+        <p>Run the setup wizard and follow on-screen instructions.</p>
+      </div>
+      <div class="step reveal">
+        <div class="step-num">03</div>
+        <h3>Activate</h3>
+        <p>Press Ctrl+Shift+J or say "Hey Jarvis" to launch Jane.</p>
+      </div>
+    </div>
+
+    <!-- Terminal -->
+    <div class="terminal reveal" style="margin-top:3rem;">
+      <div class="line" style="margin-top:1rem;"><span class="prompt">jane@local:~$</span> <span>jane --version</span></div>
+      <div class="line output">JANE AI Assistant v6.0.0 (stable)</div>
+      <div class="line comment"># Built with Ollama + Llama 3 8B</div>
+      <div class="line" style="margin-top:0.5rem;"><span class="prompt">jane@local:~$</span> <span>jane --status</span></div>
+      <div class="line success">✔ AI Engine: Online (local)</div>
+      <div class="line success">✔ Voice Recognition: Ready</div>
+      <div class="line success">✔ Privacy Mode: Active</div>
+      <div class="line success">✔ Data Transmitted: 0 bytes</div>
+      <div class="line" style="margin-top:0.5rem;"><span class="prompt">jane@local:~$</span> <span class="cursor"></span></div>
     </div>
   </div>
-</div>
+</section>
 
-<div class="footer">
-  <div class="footer-content">
-    <p>Jane 6.0 - A fully offline AI virtual assistant for Windows</p>
-    <p>Copyright © 2021-present Ravindu Senanayake. All Rights Reserved.</p>
-    <p class="footer-copyright">This software is proprietary. See <a href="LICENSE">LICENSE</a> for full terms.</p>
+<div class="divider"></div>
+
+<!-- SPECS -->
+<section id="specs">
+  <div class="container">
+    <div class="section-header reveal">
+      <p class="section-eyebrow">// System Requirements</p>
+      <h2 class="section-title">Technical <span>Specifications</span></h2>
+    </div>
+    <div class="info-grid reveal">
+      <div class="spec-block">
+        <h4>// Operating System</h4>
+        <p>Windows 10 (64-bit) or Windows 11</p>
+      </div>
+      <div class="spec-block">
+        <h4>// AI Model</h4>
+        <p>Llama 3 8B via Ollama — fully local inference</p>
+      </div>
+      <div class="spec-block">
+        <h4>// RAM</h4>
+        <p>Minimum 8GB RAM (16GB recommended for optimal performance)</p>
+      </div>
+      <div class="spec-block">
+        <h4>// Storage</h4>
+        <p>~6GB free disk space for model + application files</p>
+      </div>
+      <div class="spec-block">
+        <h4>// Internet</h4>
+        <p>Not required for core AI features. Optional for web search.</p>
+      </div>
+      <div class="spec-block">
+        <h4>// Microphone</h4>
+        <p>Required for voice activation and speech recognition</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<div class="cta-section">
+  <h2 class="reveal">Your AI. Your Machine. Your Rules.</h2>
+  <p class="reveal">Jane 6.0 puts the power of AI in your hands — without sending a single byte to the cloud.</p>
+  <div class="btn-row reveal">
+    <a href="https://github.com/Ravindu-S/JANE-AI-Assistant/releases" target="_blank" class="btn btn-primary">Download Now</a>
+    <a href="https://github.com/Ravindu-S/JANE-AI-Assistant" target="_blank" class="btn btn-outline">View on GitHub</a>
   </div>
 </div>
 
+<!-- FOOTER -->
+<footer>
+  <p>JANE 6.0 — Fully Offline AI for Windows</p>
+  <p style="margin-top:0.5rem;">Copyright &copy; 2021–present <a href="https://github.com/Ravindu-S" target="_blank">Ravindu Senanayake</a>. All Rights Reserved.</p>
+  <p style="margin-top:0.5rem;">Proprietary software. See <a href="LICENSE">LICENSE</a> for full terms.</p>
+</footer>
+
 <script>
-  // Add subtle animations for visual interest
-  document.addEventListener('DOMContentLoaded', function() {
-    // Add subtle pulse effect to cards
-    const cards = document.querySelectorAll('.feature-card');
-    cards.forEach(card => {
-      card.addEventListener('mouseenter', function() {
-        this.style.transform = 'translateY(-10px)';
-        this.style.zIndex = '10';
-      });
-      
-      card.addEventListener('mouseleave', function() {
-        this.style.transform = 'translateY(0)';
-        this.style.zIndex = '1';
-      });
+  /* ── MATRIX RAIN ── */
+  const canvas = document.getElementById('matrix-canvas');
+  const ctx = canvas.getContext('2d');
+  let cols, drops;
+
+  function initMatrix() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    const fontSize = 13;
+    cols = Math.floor(canvas.width / fontSize);
+    drops = Array(cols).fill(1);
+  }
+
+  function drawMatrix() {
+    ctx.fillStyle = 'rgba(2,12,24,0.05)';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    ctx.fillStyle = '#00ffe7';
+    ctx.font = '13px Share Tech Mono, monospace';
+    const chars = '01アイウエオカキクケコサシスセソタチツテトナニヌネノ';
+    drops.forEach((y, i) => {
+      const ch = chars[Math.floor(Math.random() * chars.length)];
+      ctx.fillStyle = Math.random() > 0.95 ? '#fff' : `rgba(0,255,231,${Math.random() * 0.6 + 0.2})`;
+      ctx.fillText(ch, i * 13, y * 13);
+      if (y * 13 > canvas.height && Math.random() > 0.975) drops[i] = 0;
+      drops[i]++;
     });
-    
-    // Add a subtle glow effect to buttons
-    const buttons = document.querySelectorAll('.btn');
-    buttons.forEach(button =>
+  }
+
+  initMatrix();
+  window.addEventListener('resize', initMatrix);
+  setInterval(drawMatrix, 45);
+
+  /* ── SCROLL REVEAL ── */
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('visible'), i * 80);
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  reveals.forEach(r => observer.observe(r));
+
+  /* ── STAT COUNTER ANIMATION ── */
+  function animateCounters() {
+    document.querySelectorAll('.stat-num').forEach(el => {
+      const target = parseInt(el.dataset.target);
+      const start = parseInt(el.textContent);
+      const duration = 1500;
+      const step = (target - start) / (duration / 16);
+      let current = start;
+      const timer = setInterval(() => {
+        current += step;
+        if ((step > 0 && current >= target) || (step < 0 && current <= target)) {
+          el.textContent = target;
+          clearInterval(timer);
+        } else {
+          el.textContent = Math.floor(current);
+        }
+      }, 16);
+    });
+  }
+
+  const heroObserver = new IntersectionObserver(entries => {
+    if (entries[0].isIntersecting) { animateCounters(); heroObserver.disconnect(); }
+  }, { threshold: 0.5 });
+  heroObserver.observe(document.querySelector('.stats-row'));
+
+  /* ── GLITCH TITLE - RANDOM SKEW ── */
+  const title = document.querySelector('.hero-title');
+  setInterval(() => {
+    if (Math.random() > 0.92) {
+      title.style.transform = `skewX(${(Math.random()-0.5)*4}deg)`;
+      setTimeout(() => title.style.transform = '', 80 + Math.random()*100);
+    }
+  }, 500);
+
+  /* ── CUSTOM CURSOR GLOW ── */
+  const glow = document.createElement('div');
+  glow.style.cssText = `
+    position:fixed; width:16px; height:16px; border-radius:50%;
+    background:rgba(0,255,231,0.5); pointer-events:none; z-index:10000;
+    transform:translate(-50%,-50%); transition:transform 0.1s;
+    box-shadow:0 0 12px #00ffe7, 0 0 24px #00ffe788;
+    mix-blend-mode:screen;
+  `;
+  document.body.appendChild(glow);
+  document.addEventListener('mousemove', e => {
+    glow.style.left = e.clientX + 'px';
+    glow.style.top = e.clientY + 'px';
+  });
+</script>
+</body>
+</html>
