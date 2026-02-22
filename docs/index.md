@@ -1034,5 +1034,6 @@ layout: null
     glow.style.top = e.clientY + 'px';
   });
 </script>
+  <script src="jane-bot.js"></script>
 </body>
 </html>
