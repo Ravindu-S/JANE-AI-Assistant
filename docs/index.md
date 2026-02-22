@@ -581,6 +581,56 @@ layout: null
       text-transform: uppercase;
     }
 
+    /* ───────── TECH STACK ───────── */
+    .tech-stack {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 2.5rem;
+    }
+    .tech-label {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 5px;
+      color: #3a7080;
+      text-transform: uppercase;
+    }
+    .tech-logos {
+      display: flex;
+      gap: 2rem;
+      align-items: center;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .tech-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.4rem;
+      text-decoration: none;
+      color: #5a8a9a;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.7rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      transition: all 0.25s;
+      opacity: 0.65;
+    }
+    .tech-item:hover {
+      opacity: 1;
+      color: var(--cyan);
+      text-shadow: var(--glow-c);
+      transform: translateY(-3px);
+    }
+    .tech-item svg {
+      filter: grayscale(0.4) brightness(0.85);
+      transition: filter 0.25s;
+    }
+    .tech-item:hover svg {
+      filter: grayscale(0) brightness(1.1) drop-shadow(0 0 6px rgba(0,255,231,0.4));
+    }
+
     /* ───────── SCROLL REVEAL ───────── */
     .reveal {
       opacity: 0;
@@ -626,11 +676,46 @@ layout: null
   <p class="hero-subtitle">The fully offline AI virtual assistant for Windows. No cloud. No surveillance. No compromise.</p>
 
   <div class="badges">
-    <span class="badge"> 100% Offline</span>
-    <span class="badge"> Llama 3 8B</span>
-    <span class="badge"> Windows 10/11</span>
-    <span class="badge"> Zero Data Collection</span>
-    <span class="badge"> Voice-First</span>
+    <span class="badge">🔒 100% Offline</span>
+    <span class="badge">🧠 Llama 3 8B</span>
+    <span class="badge">💻 Windows 10/11</span>
+    <span class="badge">⚡ Zero Data Collection</span>
+    <span class="badge">🎙 Voice-First</span>
+  </div>
+
+  <div class="tech-stack">
+    <span class="tech-label">BUILT WITH</span>
+    <div class="tech-logos">
+      <!-- Python -->
+      <a href="https://www.python.org" target="_blank" class="tech-item" title="Python">
+        <svg viewBox="0 0 128 128" width="36" height="36" xmlns="http://www.w3.org/2000/svg">
+          <linearGradient id="py1" x1="70.252" y1="1237.476" x2="170.659" y2="1151.089" gradientUnits="userSpaceOnUse" gradientTransform="matrix(.563 0 0 -.568 -29.215 707.817)">
+            <stop offset="0" stop-color="#5A9FD4"/><stop offset="1" stop-color="#306998"/>
+          </linearGradient>
+          <linearGradient id="py2" x1="209.474" y1="1098.811" x2="173.62" y2="1149.537" gradientUnits="userSpaceOnUse" gradientTransform="matrix(.563 0 0 -.568 -29.215 707.817)">
+            <stop offset="0" stop-color="#FFD43B"/><stop offset="1" stop-color="#FFE873"/>
+          </linearGradient>
+          <path fill="url(#py1)" d="M63.391 1.988c-4.222.02-8.252.379-11.8 1.007-10.45 1.846-12.346 5.71-12.346 12.837v9.411h24.693v3.137H29.977c-7.176 0-13.46 4.313-15.426 12.521-2.268 9.405-2.368 15.275 0 25.096 1.755 7.311 5.947 12.519 13.124 12.519h8.491V67.234c0-8.151 7.051-15.34 15.426-15.34h24.665c6.866 0 12.346-5.654 12.346-12.548V15.833c0-6.693-5.646-11.72-12.346-12.837-4.244-.706-8.645-1.027-12.866-1.008zM50.037 9.557c2.55 0 4.634 2.117 4.634 4.721 0 2.593-2.083 4.69-4.634 4.69-2.56 0-4.633-2.097-4.633-4.69-.001-2.604 2.073-4.721 4.633-4.721z"/>
+          <path fill="url(#py2)" d="M91.682 28.38v10.966c0 8.5-7.208 15.655-15.426 15.655H51.591c-6.756 0-12.346 5.783-12.346 12.548v23.511c0 6.693 5.818 10.628 12.346 12.547 7.816 2.297 15.312 2.713 24.665 0 6.216-1.801 12.346-5.423 12.346-12.547v-9.412H63.938v-3.138h37.012c7.176 0 9.852-5.005 12.348-12.519 2.578-7.735 2.467-15.174 0-25.096-1.774-7.145-5.161-12.521-12.348-12.521h-9.268zM77.809 87.927c2.561 0 4.634 2.097 4.634 4.692 0 2.602-2.074 4.719-4.634 4.719-2.55 0-4.633-2.117-4.633-4.719 0-2.595 2.083-4.692 4.633-4.692z"/>
+        </svg>
+        <span>Python</span>
+      </a>
+      <!-- Ollama -->
+      <a href="https://ollama.com" target="_blank" class="tech-item" title="Ollama">
+        <img src="assets/logos/ollama.png" width="36" height="36" style="object-fit:contain;">
+        <span>Ollama</span>
+      </a>
+      <!-- Windows -->
+      <a href="https://www.microsoft.com/windows" target="_blank" class="tech-item" title="Windows">
+        <svg viewBox="0 0 128 128" width="36" height="36" xmlns="http://www.w3.org/2000/svg">
+          <path fill="#00adef" d="M0 0h61v61H0z" transform="translate(4 4)"/>
+          <path fill="#00adef" d="M67 0h61v61H67z" transform="translate(4 4)" opacity="0.8"/>
+          <path fill="#00adef" d="M0 67h61v61H0z" transform="translate(4 4)" opacity="0.8"/>
+          <path fill="#00adef" d="M67 67h61v61H67z" transform="translate(4 4)" opacity="0.6"/>
+        </svg>
+        <span>Windows</span>
+      </a>
+    </div>
   </div>
 
   <div class="btn-row">
@@ -852,7 +937,7 @@ layout: null
 <footer>
   <p>JANE 6.0 — Fully Offline AI for Windows</p>
   <p style="margin-top:0.5rem;">Copyright &copy; 2021–present <a href="https://github.com/Ravindu-S" target="_blank">Ravindu Senanayake</a>. All Rights Reserved.</p>
-  <p style="margin-top:0.5rem;">Proprietary software. See <a href="LICENSE">LICENSE</a> for full terms.</p>
+  <p style="margin-top:0.5rem;">Proprietary software. See <a href="https://github.com/Ravindu-S/JANE-AI-Assistant/blob/main/LICENSE" target="_blank">LICENSE</a> for full terms.</p>
 </footer>
 
 <script>
