@@ -702,7 +702,7 @@ layout: null
       </a>
       <!-- Ollama -->
       <a href="https://ollama.com" target="_blank" class="tech-item" title="Ollama">
-        <img src="/JANE-AI-Assistant/assets/logos/llama.png" width="36" height="36" style="object-fit:contain;">
+        <img src="https://raw.githubusercontent.com/Ravindu-S/JANE-AI-Assistant/main/assets/logos/llama.png" width="36" height="36" style="object-fit:contain;">
         <span>Ollama</span>
       </a>
       <!-- Windows -->
