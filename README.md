@@ -7,8 +7,8 @@ Markdown
 ### Personal Virtual Assistant — Fully Offline, AI-Powered
 
 ## 📚 Documentation
-
 [Read the official documentation](https://ravindu-s.github.io/JANE-AI-Assistant/)
+
 
 [![License](https://img.shields.io/badge/License-Proprietary%20EULA-0a1628?style=for-the-badge&labelColor=0a1628&color=0097a7)](LICENSE)
 [![Platform](https://img.shields.io/badge/Platform-Windows%2010%2F11-0a1628?style=for-the-badge&logo=windows&logoColor=0097a7&labelColor=0a1628&color=0097a7)]()
