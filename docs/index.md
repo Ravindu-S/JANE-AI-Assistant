@@ -570,7 +570,7 @@ layout: null
       font-size: 2.5rem;
       font-weight: 900;
       color: var(--cyan);
-      text-shadow: var(--glow-c);
+      text-shadow: 0 0 6px rgba(0,255,231,0.35);
       display: block;
     }
     .stat-label {
@@ -626,11 +626,11 @@ layout: null
   <p class="hero-subtitle">The fully offline AI virtual assistant for Windows. No cloud. No surveillance. No compromise.</p>
 
   <div class="badges">
-    <span class="badge">🔒 100% Offline</span>
-    <span class="badge">🧠 Llama 3 8B</span>
-    <span class="badge">💻 Windows 10/11</span>
-    <span class="badge">⚡ Zero Data Collection</span>
-    <span class="badge">🎙 Voice-First</span>
+    <span class="badge"> 100% Offline</span>
+    <span class="badge"> Llama 3 8B</span>
+    <span class="badge"> Windows 10/11</span>
+    <span class="badge"> Zero Data Collection</span>
+    <span class="badge"> Voice-First</span>
   </div>
 
   <div class="btn-row">
@@ -725,9 +725,8 @@ layout: null
         <p>Seamlessly embedded in your Windows workflow. Lightweight, fast, always ready.</p>
         <ul>
           <li>System tray integration</li>
-          <li>Startup on boot option</li>
-          <li>Low resource footprint</li>
           <li>Instant hotkey response</li>
+          <li>Always-ready background service</li>
         </ul>
       </div>
     </div>
@@ -785,31 +784,56 @@ layout: null
       <p class="section-eyebrow">// System Requirements</p>
       <h2 class="section-title">Technical <span>Specifications</span></h2>
     </div>
-    <div class="info-grid reveal">
-      <div class="spec-block">
-        <h4>// Operating System</h4>
-        <p>Windows 10 (64-bit) or Windows 11</p>
+    <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap:1.5rem;" class="reveal">
+
+      <!-- Minimum -->
+      <div style="background:var(--card); border:1px solid rgba(0,255,100,0.2); border-top: 3px solid #00ff88; border-radius:4px; padding:1.75rem;">
+        <div style="font-family:'Share Tech Mono',monospace; font-size:0.7rem; letter-spacing:3px; color:#00ff88; margin-bottom:1rem;">🟢 // MINIMUM — CPU-ONLY</div>
+        <table style="width:100%; border-collapse:collapse; font-size:0.88rem;">
+          <tr><td style="color:#3a7080; padding:4px 0; font-family:'Share Tech Mono',monospace; font-size:0.75rem; width:40%;">OS</td><td style="color:#c8dde8;">Windows 10 v1809+ (64-bit)</td></tr>
+          <tr><td style="color:#3a7080; padding:4px 0; font-family:'Share Tech Mono',monospace; font-size:0.75rem;">CPU</td><td style="color:#c8dde8;">6-core 3.0 GHz+<br><span style="font-size:0.78rem;color:#3a7080;">i5 10th gen+ / Ryzen 5 5000+</span></td></tr>
+          <tr><td style="color:#3a7080; padding:4px 0; font-family:'Share Tech Mono',monospace; font-size:0.75rem;">RAM</td><td style="color:#c8dde8;">16 GB</td></tr>
+          <tr><td style="color:#3a7080; padding:4px 0; font-family:'Share Tech Mono',monospace; font-size:0.75rem;">GPU</td><td style="color:#c8dde8;">Not required (CPU-only mode)</td></tr>
+          <tr><td style="color:#3a7080; padding:4px 0; font-family:'Share Tech Mono',monospace; font-size:0.75rem;">Storage</td><td style="color:#c8dde8;">12 GB free (SSD recommended)</td></tr>
+          <tr><td style="color:#3a7080; padding:4px 0; font-family:'Share Tech Mono',monospace; font-size:0.75rem;">Audio</td><td style="color:#c8dde8;">Microphone required</td></tr>
+        </table>
+        <div style="margin-top:1.25rem; padding-top:1rem; border-top:1px solid rgba(0,255,100,0.12); font-family:'Share Tech Mono',monospace; font-size:0.75rem; color:#3a7080;">
+          Chat: 8–10s &nbsp;|&nbsp; OCR: 15–20s
+        </div>
       </div>
-      <div class="spec-block">
-        <h4>// AI Model</h4>
-        <p>Llama 3 8B via Ollama — fully local inference</p>
+
+      <!-- Recommended -->
+      <div style="background:var(--card); border:1px solid rgba(245,230,66,0.2); border-top: 3px solid #f5e642; border-radius:4px; padding:1.75rem;">
+        <div style="font-family:'Share Tech Mono',monospace; font-size:0.7rem; letter-spacing:3px; color:#f5e642; margin-bottom:1rem;">🟡 // RECOMMENDED — WITH GPU</div>
+        <table style="width:100%; border-collapse:collapse; font-size:0.88rem;">
+          <tr><td style="color:#3a7080; padding:4px 0; font-family:'Share Tech Mono',monospace; font-size:0.75rem; width:40%;">OS</td><td style="color:#c8dde8;">Windows 10 v1809+ (64-bit)</td></tr>
+          <tr><td style="color:#3a7080; padding:4px 0; font-family:'Share Tech Mono',monospace; font-size:0.75rem;">CPU</td><td style="color:#c8dde8;">8-core 3.5 GHz+<br><span style="font-size:0.78rem;color:#3a7080;">i7 10th gen+ / Ryzen 7 5000+</span></td></tr>
+          <tr><td style="color:#3a7080; padding:4px 0; font-family:'Share Tech Mono',monospace; font-size:0.75rem;">RAM</td><td style="color:#c8dde8;">32 GB</td></tr>
+          <tr><td style="color:#3a7080; padding:4px 0; font-family:'Share Tech Mono',monospace; font-size:0.75rem;">GPU</td><td style="color:#c8dde8;">NVIDIA GTX 1660 / RTX 2060+<br><span style="font-size:0.78rem;color:#3a7080;">6 GB VRAM</span></td></tr>
+          <tr><td style="color:#3a7080; padding:4px 0; font-family:'Share Tech Mono',monospace; font-size:0.75rem;">Storage</td><td style="color:#c8dde8;">12 GB free SSD</td></tr>
+          <tr><td style="color:#3a7080; padding:4px 0; font-family:'Share Tech Mono',monospace; font-size:0.75rem;">Audio</td><td style="color:#c8dde8;">Microphone required</td></tr>
+        </table>
+        <div style="margin-top:1.25rem; padding-top:1rem; border-top:1px solid rgba(245,230,66,0.12); font-family:'Share Tech Mono',monospace; font-size:0.75rem; color:#3a7080;">
+          Chat: 3–8s &nbsp;|&nbsp; OCR: 8–15s
+        </div>
       </div>
-      <div class="spec-block">
-        <h4>// RAM</h4>
-        <p>Minimum 8GB RAM (16GB recommended for optimal performance)</p>
+
+      <!-- Best -->
+      <div style="background:var(--card); border:1px solid rgba(255,140,0,0.2); border-top: 3px solid #ff8c00; border-radius:4px; padding:1.75rem;">
+        <div style="font-family:'Share Tech Mono',monospace; font-size:0.7rem; letter-spacing:3px; color:#ff8c00; margin-bottom:1rem;">🟠 // BEST EXPERIENCE — HIGH-END GPU</div>
+        <table style="width:100%; border-collapse:collapse; font-size:0.88rem;">
+          <tr><td style="color:#3a7080; padding:4px 0; font-family:'Share Tech Mono',monospace; font-size:0.75rem; width:40%;">OS</td><td style="color:#c8dde8;">Windows 11 (64-bit)</td></tr>
+          <tr><td style="color:#3a7080; padding:4px 0; font-family:'Share Tech Mono',monospace; font-size:0.75rem;">CPU</td><td style="color:#c8dde8;">8-core 4.0 GHz+<br><span style="font-size:0.78rem;color:#3a7080;">i7/i9 12th gen+ / Ryzen 7/9 5000+</span></td></tr>
+          <tr><td style="color:#3a7080; padding:4px 0; font-family:'Share Tech Mono',monospace; font-size:0.75rem;">RAM</td><td style="color:#c8dde8;">32 GB</td></tr>
+          <tr><td style="color:#3a7080; padding:4px 0; font-family:'Share Tech Mono',monospace; font-size:0.75rem;">GPU</td><td style="color:#c8dde8;">NVIDIA RTX 3070+<br><span style="font-size:0.78rem;color:#3a7080;">8 GB VRAM or more</span></td></tr>
+          <tr><td style="color:#3a7080; padding:4px 0; font-family:'Share Tech Mono',monospace; font-size:0.75rem;">Storage</td><td style="color:#c8dde8;">20 GB free NVMe SSD</td></tr>
+          <tr><td style="color:#3a7080; padding:4px 0; font-family:'Share Tech Mono',monospace; font-size:0.75rem;">Audio</td><td style="color:#c8dde8;">Quality microphone</td></tr>
+        </table>
+        <div style="margin-top:1.25rem; padding-top:1rem; border-top:1px solid rgba(255,140,0,0.12); font-family:'Share Tech Mono',monospace; font-size:0.75rem; color:#3a7080;">
+          Chat: 1–3s &nbsp;|&nbsp; OCR: 3–8s
+        </div>
       </div>
-      <div class="spec-block">
-        <h4>// Storage</h4>
-        <p>~6GB free disk space for model + application files</p>
-      </div>
-      <div class="spec-block">
-        <h4>// Internet</h4>
-        <p>Not required for core AI features. Optional for web search.</p>
-      </div>
-      <div class="spec-block">
-        <h4>// Microphone</h4>
-        <p>Required for voice activation and speech recognition</p>
-      </div>
+
     </div>
   </div>
 </section>
