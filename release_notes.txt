@@ -52,6 +52,7 @@ Built with privacy in mind. Powered by local AI.
   '               (Intel i7 10th gen+ / AMD Ryzen 7 5000+)
   '  RAM:       32 GB
   '  GPU:       Not required
+  '  Storage:   12 GB free space (SSD recommended)
   '  Expected response times:
   '    Chat: 15-30 seconds | OCR: 20-40 seconds
   '═══════════════════════════════════════════
@@ -62,9 +63,8 @@ Built with privacy in mind. Powered by local AI.
   '               (Intel i7/i9 12th gen+ / AMD Ryzen 7/9 5000+)
   '  RAM:       32 GB
   '  GPU:       NVIDIA RTX 3070+ (8 GB VRAM or more)
-  '  Storage:   20 GB free NVMe SSD
+  '  Storage:   12 GB free space (SSD recommended)
   '  Audio:     Quality microphone
-  '  Internet:  Broadband
   '  Expected response times:
   '    Chat: 1-3 seconds | OCR: 3-8 seconds
   '═══════════════════════════════════════════
